@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maya Terzi</title>
+
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --white:  #ffffff;
+  --ink:    #0e0e0e;
+  --accent: #e67d43;
+  --pad:    48px;
+}
+
+html, body { height: 100%; }
+
+body {
+  background: var(--white);
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  overflow: auto;
+}
+
+/* ─── NAV (UNCHANGED STRUCTURE) ─── */
+nav {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px var(--pad);
+}
+
+.n-logo {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.n-links {
+  display: flex;
+  gap: 40px;
+}
+
+.n-link {
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  opacity: .45;
+  transition: opacity .15s, color .15s;
+}
+
+.n-link:hover {
+  opacity: 1;
+  color: var(--accent);
+}
+
+.n-logo:hover {
+  color: var(--accent);
+}
+
+/* ─── CONNECT ─── */
+.connect-wrap {
+  min-height: calc(100vh - 120px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px var(--pad);
+}
+
+.connect-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 32px;
+}
+
+.connect-title {
+  font-family: 'EB Garamond', serif;
+  font-size: 42px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+.connect-links {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.connect-links a {
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  opacity: .55;
+  transition: opacity .15s, color .15s;
+}
+
+.connect-links a:hover {
+  opacity: 1;
+  color: var(--accent);
+}
+</style>
+</head>
+
+<body>
+
+<!-- ─── NAV (UNCHANGED) ─── -->
+<nav>
+  <a href="index" class="n-logo">Maya Terzi</a>
+  <div class="n-links">
+    <a href="projects" class="n-link">Projects</a>
+    <a href="about" class="n-link">About</a>
+    <a href="contact" class="n-link">Contact</a>
+  </div>
+</nav>
+
+<!-- ─── CONNECT PAGE ─── -->
+<section class="connect-wrap">
+  <div class="connect-grid">
+
+    <div class="connect-title">Let's Work Together</div>
+
+    <div class="connect-links">
+      <a href="https://instagram.com/maya.terzi" target="_blank">Instagram</a>
+      <a href="https://linkedin.com/in/maya-terzi" target="_blank">LinkedIn</a>
+      <a href="mailto:mayaterzi.creative@gmail.com">Email</a>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>
