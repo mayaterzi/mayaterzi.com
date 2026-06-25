@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maya Terzi</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --white:  #ffffff;
+  --ink:    #0e0e0e;
+  --gray:   #888;
+  --rule:   #2a2a2a;
+  --pad:    48px;
+  --accent: #e67d43;
+}
+
+html, body { height: 100%; }
+
+body {
+  background: var(--ink);
+  color: var(--white);
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* ─── CURSOR ─── */
+#dot {
+  position: fixed; z-index: 9000;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--white);
+  pointer-events: none;
+  transform: translate(-50%,-50%);
+}
+#ring {
+  position: fixed; z-index: 8999;
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.3);
+  pointer-events: none;
+  transform: translate(-50%,-50%);
+  transition: width .3s cubic-bezier(.23,1,.32,1),
+              height .3s cubic-bezier(.23,1,.32,1),
+              opacity .25s;
+}
+body.hov #ring { width: 52px; height: 52px; opacity: .15; }
+
+/* ─── PAGES ─── */
+.pg { display: none; min-height: 100vh; }
+.pg.on { display: block; }
+
+/* ══════════════════════════════
+   HOME — full screen
+══════════════════════════════ */
+#pg-home {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* background image */
+.home-bg {
+  position: absolute; inset: 0; z-index: 0;
+}
+.home-bg img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+/* dark overlay */
+.home-veil {
+  position: absolute; inset: 0; z-index: 1;
+  background: rgba(10,10,10,.58);
+}
+
+/* ─── NAV ─── */
+nav {
+  position: relative; z-index: 10;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 32px var(--pad);
+  flex-shrink: 0;
+}
+.n-logo {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--white); text-decoration: none; cursor: none;
+  opacity: .85;
+}
+.n-links {
+  display: flex; gap: 40px; align-items: center;
+}
+.n-link {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--white); text-decoration: none; opacity: .45; cursor: none;
+  transition: opacity .15s;
+  background: none; border: none; font-family: 'Inter', sans-serif;
+}
+.n-link:hover { opacity: 1; color: var(--accent); }
+
+/* ─── CATEGORY OVERLAY ─── */
+.home-content {
+  position: relative; z-index: 5;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 var(--pad);
+}
+
+.cat-stack {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 80px;
+}
+
+.cat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  cursor: none;
+  text-decoration: none;
+  color: var(--white);
+  transition: color .3s ease;
+  white-space: nowrap;
+}
+.cat-item:hover { color: var(--accent); }
+
+.cat-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px; font-weight: 400;
+  letter-spacing: .22em;
+  opacity: .4;
+  transition: opacity .3s;
+}
+.cat-item:hover .cat-num { opacity: 1; }
+
+.cat-title {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(3rem, 7vw, 7rem);
+  font-weight: 400; line-height: 1;
+  letter-spacing: -.02em;
+  font-style: normal;
+  white-space: nowrap;
+}
+
+/* bottom-right name credit */
+.home-credit {
+  position: absolute; z-index: 5;
+  right: var(--pad); bottom: 60px;
+  font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+  opacity: .28; writing-mode: vertical-rl;
+}
+
+/* ══════════════════════════════
+   PROJECTS PAGE (alexanderabaunza index style)
+══════════════════════════════ */
+#pg-projects {
+  background: var(--white);
+  color: var(--ink);
+}
+
+/* floating image that follows cursor */
+#float-img {
+  position: fixed; z-index: 7000;
+  width: 310px; height: 210px;
+  pointer-events: none; overflow: hidden;
+  opacity: 0;
+  transition: opacity .22s cubic-bezier(.23,1,.32,1);
+  transform: translate(-50%, -62%);
+  will-change: left, top;
+}
+#float-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+#float-img.show { opacity: 1; }
+
+.proj-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px var(--pad);
+  background: rgba(255,255,255,.94);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid #e5e5e5;
+}
+.pn-back {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none; cursor: none;
+  opacity: .4; transition: opacity .15s;
+  background: none; border: none; font-family: 'Inter', sans-serif;
+}
+.pn-back:hover { opacity: 1; color: var(--accent); }
+.pn-title {
+  font-size: 11px; font-weight: 500; letter-spacing: .18em;
+  text-transform: uppercase; opacity: .35;
+}
+.pn-links { display: flex; gap: 36px; }
+.pn-link {
+  font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none; opacity: .35; cursor: none;
+  transition: opacity .15s;
+  background: none; border: none; font-family: 'Inter', sans-serif;
+}
+.pn-link:hover { opacity: 1; color: var(--accent); }
+
+.proj-index {
+  padding: 96px var(--pad) 0;
+}
+.pi-head {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.pi-label { font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: #999; }
+.pi-count { font-size: 10px; letter-spacing: .1em; color: #bbb; }
+
+.proj-list { list-style: none; }
+.proj-row {
+  display: grid;
+  grid-template-columns: 44px 1fr auto auto;
+  align-items: center;
+  gap: 0 24px;
+  padding: 20px 0;
+  border-bottom: 1px solid #e5e5e5;
+  cursor: none;
+  transition: opacity .18s;
+}
+.proj-list:hover .proj-row { opacity: .25; }
+.proj-list:hover .proj-row:hover { opacity: 1; }
+.pr-num { font-size: 10px; letter-spacing: .08em; color: #bbb; }
+.pr-title {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(1.6rem, 3vw, 2.9rem);
+  font-weight: 400; line-height: 1; letter-spacing: -.01em;
+  transition: letter-spacing .35s cubic-bezier(.23,1,.32,1);
+}
+.proj-row:hover .pr-title { letter-spacing: .015em; color: var(--accent); }
+.pr-title em { font-style: italic; }
+.pr-role {
+  font-size: 10px; letter-spacing: .15em; text-transform: uppercase;
+  color: #999; white-space: nowrap;
+}
+.pr-arrow {
+  font-size: 12px; color: var(--accent);
+  opacity: 0; transform: translateX(-6px);
+  transition: opacity .2s, transform .2s;
+}
+.proj-row:hover .pr-arrow { opacity: 1; transform: translateX(0); }
+
+/* ══════════════════════════════
+   PROJECT DETAIL PAGE
+══════════════════════════════ */
+#pg-proj {
+  background: var(--white);
+  color: var(--ink);
+}
+
+.pd-back-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px var(--pad);
+  background: rgba(255,255,255,.94);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid #e5e5e5;
+}
+.pd-back-btn {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none; cursor: none;
+  opacity: .4; transition: opacity .15s;
+  background: none; border: none; font-family: 'Inter', sans-serif;
+}
+.pd-back-btn:hover { opacity: 1; color: var(--accent); }
+.pd-back-name {
+  font-size: 11px; font-weight: 500; letter-spacing: .18em;
+  text-transform: uppercase; opacity: .3;
+}
+
+.pd-strip {
+  padding: 96px var(--pad) 32px;
+  border-bottom: 1px solid #e5e5e5;
+  display: grid; grid-template-columns: 1fr auto;
+  align-items: end; gap: 24px;
+}
+.pd-h1 {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(3rem, 8vw, 8rem);
+  font-weight: 400; line-height: .88; letter-spacing: -.025em;
+}
+.pd-h1 em { font-style: italic; }
+.pd-meta-right { text-align: right; }
+.pd-role-lbl { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: #999; margin-bottom: 5px; }
+.pd-yr-lbl { font-size: 10px; letter-spacing: .1em; color: #bbb; }
+
+.pd-hero { width: 100%; aspect-ratio: 21/9; overflow: hidden; }
+.pd-hero img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.pd-meta-bar {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  border-bottom: 1px solid #e5e5e5;
+}
+.pd-m { padding: 24px var(--pad); border-right: 1px solid #e5e5e5; }
+.pd-m:last-child { border-right: none; }
+.pd-ml { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #999; margin-bottom: 7px; }
+.pd-mv { font-size: 13px; color: var(--ink); line-height: 1.5; }
+
+.pd-text {
+  display: grid; grid-template-columns: 200px 1fr;
+  border-bottom: 1px solid #e5e5e5;
+}
+.pd-text-gap { border-right: 1px solid #e5e5e5; }
+.pd-text-body { padding: 56px 52px; }
+.pd-lead {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.45rem; line-height: 1.65;
+  color: var(--accent); opacity: .9; margin-bottom: 22px; max-width: 600px;
+}
+.pd-body-txt { font-size: 13px; line-height: 1.88; color: #888; max-width: 560px; }
+
+.pd-gal { padding: 40px var(--pad) 72px; }
+.pd-gg { display: grid; gap: 10px; }
+.pd-gg.g2 { grid-template-columns: 1fr 1fr; }
+.pd-gg.g3 { grid-template-columns: 2fr 1fr; }
+.pd-gi { overflow: hidden; }
+.pd-gi img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform .65s cubic-bezier(.23,1,.32,1);
+}
+.pd-gi:hover img { transform: scale(1.03); }
+.pd-gi.wide { aspect-ratio: 16/9; }
+.pd-gi.tall { aspect-ratio: 3/4; }
+.pd-gi.sq   { aspect-ratio: 1; }
+.pd-gi.full { grid-column: 1/-1; aspect-ratio: 21/8; }
+
+.pd-live {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 10px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none; cursor: none;
+  margin: 0 var(--pad) 80px;
+  padding: 13px 24px; border: 1px solid #e5e5e5;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.pd-live:hover { background: var(--accent); color: var(--white); border-color: var(--accent); }
+
+/* ══════════════════════════════
+   ABOUT PAGE
+══════════════════════════════ */
+#pg-about {
+  background: var(--white);
+  color: var(--ink);
+}
+.about-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px var(--pad);
+  background: rgba(255,255,255,.94);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.about-body {
+  display: grid; grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+.ab-l {
+  padding: 120px var(--pad) 80px;
+  border-right: 1px solid #e5e5e5;
+  display: flex; flex-direction: column;
+}
+.ab-label { font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: #999; margin-bottom: 48px; }
+.ab-h {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(2.8rem, 5vw, 5rem);
+  font-weight: 400; line-height: 1; margin-bottom: 36px;
+}
+.ab-h em { font-style: italic; }
+.ab-p { font-size: 13px; line-height: 1.85; color: #888; max-width: 400px; margin-bottom: 52px; }
+.ab-skills { margin-top: auto; border-top: 1px solid #e5e5e5; padding-top: 28px; }
+.ab-sk { display: flex; align-items: baseline; gap: 20px; padding: 10px 0; border-bottom: 1px solid #e5e5e5; }
+.ab-sk:last-child { border-bottom: none; }
+.ab-sk-cat { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #999; min-width: 110px; flex-shrink: 0; }
+.ab-sk-v { font-size: 12px; color: #888; line-height: 1.6; }
+.ab-r { position: relative; overflow: hidden; }
+.ab-r img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 100vh; }
+
+/* ══════════════════════════════
+   CONTACT PAGE
+══════════════════════════════ */
+#pg-contact {
+  background: var(--white);
+  color: var(--ink);
+}
+.contact-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px var(--pad);
+  background: rgba(255,255,255,.94);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid #e5e5e5;
+}
+.contact-body {
+  display: grid; grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+.co-l {
+  padding: 120px var(--pad) 80px;
+  border-right: 1px solid #e5e5e5;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.co-label { font-size: 10px; letter-spacing: .24em; text-transform: uppercase; color: #999; margin-bottom: 48px; }
+.co-h {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(3.5rem, 7vw, 7.5rem);
+  font-weight: 400; line-height: .88;
+}
+.co-h em { font-style: italic; }
+.co-dets { border-top: 1px solid #e5e5e5; padding-top: 24px; }
+.co-d { font-size: 12px; color: #888; padding: 12px 0; border-bottom: 1px solid #e5e5e5; display: flex; align-items: center; gap: 10px; }
+.co-d:last-child { border-bottom: none; }
+
+.co-r { padding: 120px var(--pad) 80px; }
+.cf { display: flex; flex-direction: column; }
+.cf-f { border-bottom: 1px solid #e5e5e5; padding: 18px 0; }
+.cf-f:first-child { border-top: 1px solid #e5e5e5; }
+.cf-f label { display: block; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #999; margin-bottom: 8px; }
+.cf-f input, .cf-f textarea, .cf-f select {
+  width: 100%; background: none; border: none; outline: none;
+  font-family: 'EB Garamond', serif; font-size: 1.15rem; color: var(--ink);
+  cursor: none; resize: none;
+}
+.cf-f select { appearance: none; }
+.cf-f select option { font-family: sans-serif; font-size: .85rem; }
+.cf-f textarea { height: 80px; }
+.cf-2 { display: grid; grid-template-columns: 1fr 1fr; }
+.cf-2 .cf-f:first-child { border-right: 1px solid #e5e5e5; padding-right: 20px; }
+.cf-2 .cf-f:last-child { padding-left: 20px; }
+.cf-btn {
+  margin-top: 28px; align-self: flex-start;
+  background: var(--accent); color: var(--white);
+  font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 500;
+  letter-spacing: .2em; text-transform: uppercase;
+  padding: 13px 28px; border: none; cursor: none;
+  transition: opacity .2s;
+}
+.cf-btn:hover { opacity: .75; }
+.cf-ok { display: none; padding: 40px 0; }
+.cf-ok.on { display: block; }
+.cf-ok-h { font-family: 'EB Garamond', serif; font-size: 2rem; color: var(--accent); margin-bottom: 10px; }
+.cf-ok-p { font-size: 12px; color: #888; }
+
+/* ─── MOBILE ─── */
+@media (max-width: 768px) {
+  :root { --pad: 20px; }
+  nav, .proj-nav, .pd-back-bar, .about-nav, .contact-nav { padding: 16px var(--pad); }
+  .n-links .n-link:not(:last-child) { display: none; }
+  .cat-title { font-size: clamp(2.6rem, 11vw, 8.5rem); }
+  .proj-row { grid-template-columns: 32px 1fr; }
+  .pr-role, .pr-arrow { display: none; }
+  #float-img { display: none; }
+  .about-body, .contact-body { grid-template-columns: 1fr; }
+  .ab-l { border-right: none; padding: 96px var(--pad) 56px; }
+  .ab-r img { min-height: 50vh; }
+  .co-l { border-right: none; border-bottom: 1px solid #e5e5e5; padding: 96px var(--pad) 56px; }
+  .co-r { padding: 56px var(--pad); }
+  .cf-2 { grid-template-columns: 1fr; }
+  .cf-2 .cf-f:first-child { border-right: none; padding-right: 0; }
+  .cf-2 .cf-f:last-child { padding-left: 0; }
+  .pd-strip { grid-template-columns: 1fr; }
+  .pd-meta-bar { grid-template-columns: 1fr; }
+  .pd-m { border-right: none; }
+  .pd-text { grid-template-columns: 1fr; }
+  .pd-text-gap { display: none; }
+  .pd-text-body { padding: 40px var(--pad); }
+  .pd-gg.g2, .pd-gg.g3 { grid-template-columns: 1fr; }
+  .pd-gi.full { grid-column: 1; aspect-ratio: 16/9; }
+  .home-credit { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
+</style>
+</head>
+<body>
+
+<div id="dot"></div>
+<div id="ring"></div>
+<div id="float-img"><img id="float-src" src="" alt=""></div>
+
+<!-- ══════════════════════════════
+     HOME
+══════════════════════════════ -->
+<div id="pg-home" class="pg on">
+
+  <div class="home-bg">
+    <img src="https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/1ab2e81b-f341-46f4-8f29-d7e4bac92ee7/Untitled+design+%288%29.png"
+         alt="Maya Terzi" onerror="this.style.display='none'">
+  </div>
+  <div class="home-veil"></div>
+
+  <nav>
+    <a href="#" class="n-logo" onclick="return false;">Maya Terzi</a>
+    <div class="n-links">
+      <button class="n-link" onclick="show('pg-projects')">Projects</button>
+      <button class="n-link" onclick="show('pg-about')">About</button>
+      <button class="n-link" onclick="show('pg-contact')">Contact</button>
+    </div>
+  </nav>
+
+  <div class="home-content">
+    <div class="cat-stack">
+
+      <a class="cat-item" href="#" onclick="show('pg-projects');return false;">
+        <span class="cat-num">01</span>
+        <span class="cat-title">Creative Direction</span>
+      </a>
+
+      <a class="cat-item" href="#" onclick="show('pg-about');return false;">
+        <span class="cat-num">02</span>
+        <span class="cat-title">Maya Terzi</span>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="home-credit">Massachusetts · 2026</div>
+
+</div>
+
+
+<!-- ══════════════════════════════
+     PROJECTS
+══════════════════════════════ -->
+<div id="pg-projects" class="pg">
+
+  <nav class="proj-nav">
+    <button class="pn-back" onclick="show('pg-home')">← Maya Terzi</button>
+    <span class="pn-title">Projects</span>
+    <div class="pn-links">
+      <button class="pn-link" onclick="show('pg-about')">About</button>
+      <button class="pn-link" onclick="show('pg-contact')">Contact</button>
+    </div>
+  </nav>
+
+  <div class="proj-index">
+    <div class="pi-head">
+      <span class="pi-label">Selected Work</span>
+      <span class="pi-count">10 Projects</span>
+    </div>
+    <ul class="proj-list" id="proj-list">
+
+      <li class="proj-row" data-idx="0"
+          data-img="https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/3e22526b-1420-4c82-8802-3e95d29351e0/Untitled+design+%2823%29.png">
+        <span class="pr-num">01</span>
+        <span class="pr-title"><em>Between</em> Sand and Sea</span>
+        <span class="pr-role">Campaign Direction</span>
+        <span class="pr-arrow">→</span>
+      </li>
+
+      <li class="proj-row" data-idx="1"
+          data-img="https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/1ab2e81b-f341-46f4-8f29-d7e4bac92ee7/Untitled+design+%288%29.png">
+        <span class="pr-num">02</span>
+        <span class="pr-title">Ashes to <em>Bloom</em></span>
+        <span class="pr-role">Fashion Show Direction</span>
+        <span class="pr-arrow">→</span>
+      </li>
+
+      <li class="proj-row" data-idx="2"
+          data-img="https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/82e5ee39-0968-4bad-b861-887c3eb03846/Untitled+design+%2822%29+copy.png">
+        <span class="pr-num">03</span>
+        <span class="pr-title">Morning on the <em>Caspian</em></span>
+        <span class="pr-role">Photography · Editorial</span>
+        <span class="pr-arrow">→</span>
+      </li>
+
+      <li class="proj-row" data-idx="3"
+          data-img="https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/4c29c55b-7d92-4204-9245-ce5ca1729524/Untitled+design+%2811%29.png">
+        <span class="pr-num">04</span>
+        <span class="pr-title"><em>Love;</em> Unity</span>
+        <span class="pr-role">Campaign · Photography</span>
+        <span class="pr-arrow">→</span>
+      </li>
+
+      <li class="proj-row" data-idx="4"
+          data-img="https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/da417c67-8d4a-4b4d-8c8e-46da184e234f/8.png">
+        <span class="pr-num">05</span>
+        <span class="pr-title">Under the <em>Apricot</em> Tree</span>
+        <span class="pr-role">Editorial · Art Direction</span>
+        <span class="pr-arrow">→</span>
+      </li>
+
+      <li class="proj-row" data-idx="5"
+          data-img="https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/0ca5c026-da94-466b-8849-0d00e592b957/6.png">
+        <span class="pr-num">06</span>
+        <span class="pr-title"><em>Generational</em> Wealth</span>
+        <span class="pr-role">Campaign · Art Direction</span>
+        <span class="pr-arrow">→</span>
+      </li>
+
+      <li class="proj-row" data-idx="6"
+          data-img="https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/3e3f08cf-1af7-47b5-b364-dbb665bd67d7/5.png">
+        <span class="pr-num">07</span>
+        <span class="pr-title"><em>Black Ivy</em> Fashion Show</span>
+        <span class="pr-role">Fashion Show · Production</span>
+        <span class="pr-arrow">→</span>
+      </li>
+
+      <li class="proj-row" data-idx="7"
+          data-img="https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/4cbf1b7b-37ef-4065-9a50-5db102006fa5/4.png">
+        <span class="pr-num">08</span>
+        <span class="pr-title">Dreams Money <em>Can Buy</em></span>
+        <span class="pr-role">Campaign · Photography</span>
+        <span class="pr-arrow">→</span>
+      </li>
+
+      <li class="proj-row" data-idx="8"
+          data-img="https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/25543c96-9ab2-48d5-bd02-1adc4461e41b/7.png">
+        <span class="pr-num">09</span>
+        <span class="pr-title"><em>Cha$e a Bag</em> Co.</span>
+        <span class="pr-role">Brand · Fashion · UGC</span>
+        <span class="pr-arrow">→</span>
+      </li>
+
+      <li class="proj-row" data-idx="9"
+          data-img="https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/0a74ee73-5385-4468-acd7-ace63839ee35/14.png">
+        <span class="pr-num">10</span>
+        <span class="pr-title">Packaging <em>Design</em> (UX)</span>
+        <span class="pr-role">UX · Product Design</span>
+        <span class="pr-arrow">→</span>
+      </li>
+
+    </ul>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════
+     PROJECT DETAIL
+══════════════════════════════ -->
+<div id="pg-proj" class="pg">
+
+  <div class="pd-back-bar">
+    <button class="pd-back-btn" onclick="show('pg-projects')">← All Projects</button>
+    <span class="pd-back-name">Maya Terzi</span>
+  </div>
+
+  <div class="pd-strip">
+    <h1 class="pd-h1" id="pd-t"></h1>
+    <div class="pd-meta-right">
+      <div class="pd-role-lbl" id="pd-r"></div>
+      <div class="pd-yr-lbl" id="pd-y"></div>
+    </div>
+  </div>
+
+  <div class="pd-hero"><img id="pd-hi" src="" alt=""></div>
+
+  <div class="pd-meta-bar">
+    <div class="pd-m"><div class="pd-ml">Discipline</div><div class="pd-mv" id="pd-disc"></div></div>
+    <div class="pd-m"><div class="pd-ml">Role</div><div class="pd-mv" id="pd-role2"></div></div>
+    <div class="pd-m"><div class="pd-ml">Year</div><div class="pd-mv" id="pd-yr2"></div></div>
+  </div>
+
+  <div class="pd-text">
+    <div class="pd-text-gap"></div>
+    <div class="pd-text-body">
+      <p class="pd-lead" id="pd-lead"></p>
+      <p class="pd-body-txt" id="pd-body"></p>
+    </div>
+  </div>
+
+  <div class="pd-gal">
+    <div class="pd-gg" id="pd-gal"></div>
+  </div>
+
+  <a class="pd-live" id="pd-link" href="#" target="_blank">View Live Project ↗</a>
+
+</div>
+
+
+<!-- ══════════════════════════════
+     ABOUT
+══════════════════════════════ -->
+<div id="pg-about" class="pg">
+
+  <nav class="about-nav">
+    <button class="pd-back-btn" onclick="show('pg-home')">← Maya Terzi</button>
+    <span class="pd-back-name">About</span>
+    <div class="pn-links">
+      <button class="pn-link" onclick="show('pg-projects')">Projects</button>
+      <button class="pn-link" onclick="show('pg-contact')">Contact</button>
+    </div>
+  </nav>
+
+  <div class="about-body">
+    <div class="ab-l">
+      <div class="ab-label">About</div>
+      <h2 class="ab-h">Designer.<br><em>Thinker.</em><br>Maker.</h2>
+      <p class="ab-p">Hello — I'm Maya Terzi, a designer and creative director based in Massachusetts. I create for the joy of those around me while spreading the message of keeping our minds creatively active and wealthy. Owner of Cha$e a Bag Co. and Terzi Evi, co-founder & editor of The Walk Thru.</p>
+      <div class="ab-skills">
+        <div class="ab-sk"><span class="ab-sk-cat">Social & Content</span><span class="ab-sk-v">Instagram · TikTok · YouTube · Email/CRM</span></div>
+        <div class="ab-sk"><span class="ab-sk-cat">Design & Visual</span><span class="ab-sk-v">Adobe CC · ProCreate · Figma · Keynote</span></div>
+        <div class="ab-sk"><span class="ab-sk-cat">UX / Web</span><span class="ab-sk-v">Squarespace · Shopify · Figma · HTML/CSS</span></div>
+        <div class="ab-sk"><span class="ab-sk-cat">Fashion</span><span class="ab-sk-v">Apparel · Tailoring · Drafting · Construction</span></div>
+        <div class="ab-sk"><span class="ab-sk-cat">Operations</span><span class="ab-sk-v">Budgeting · Vendors · Event Management</span></div>
+      </div>
+    </div>
+    <div class="ab-r">
+      <img src="https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/92399752-c0e2-431c-a768-1ffe6793d693/Snapseed.jpeg"
+           alt="Maya Terzi"
+           onerror="this.parentElement.style.background='#f0ede8'">
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ══════════════════════════════
+     CONTACT
+══════════════════════════════ -->
+<div id="pg-contact" class="pg">
+
+  <nav class="contact-nav">
+    <button class="pd-back-btn" onclick="show('pg-home')">← Maya Terzi</button>
+    <span class="pd-back-name">Contact</span>
+    <div class="pn-links">
+      <button class="pn-link" onclick="show('pg-projects')">Projects</button>
+      <button class="pn-link" onclick="show('pg-about')">About</button>
+    </div>
+  </nav>
+
+  <div class="contact-body">
+    <div class="co-l">
+      <div>
+        <div class="co-label">Get In Touch</div>
+        <h2 class="co-h">Let's<br>make<br><em>something.</em></h2>
+      </div>
+      <div class="co-dets">
+        <div class="co-d">✉ &nbsp;hello@mayaterzi.com</div>
+        <div class="co-d">📍 &nbsp;Massachusetts · Available globally</div>
+        <div class="co-d">◷ &nbsp;Response within 48 hours</div>
+      </div>
+    </div>
+    <div class="co-r">
+      <div id="cf-wrap" class="cf">
+        <div class="cf-2">
+          <div class="cf-f"><label>Name</label><input id="cf-n" type="text" placeholder="Your name"></div>
+          <div class="cf-f"><label>Email</label><input id="cf-e" type="email" placeholder="your@email.com"></div>
+        </div>
+        <div class="cf-f"><label>Brand / Company</label><input id="cf-b" type="text" placeholder="Where are you from?"></div>
+        <div class="cf-f">
+          <label>Service</label>
+          <select id="cf-s">
+            <option value="">Select a discipline</option>
+            <option>Marketing Campaign</option>
+            <option>Fashion Direction</option>
+            <option>Photography</option>
+            <option>Video Production</option>
+            <option>UGC Direction</option>
+            <option>Brand Identity</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="cf-f"><label>Message</label><textarea id="cf-m" placeholder="Tell me about your project…"></textarea></div>
+        <button class="cf-btn" id="cf-send">Send Inquiry</button>
+      </div>
+      <div class="cf-ok" id="cf-ok">
+        <div class="cf-ok-h">Message received.</div>
+        <p class="cf-ok-p">I'll be in touch within 48 hours.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<script>
+/* ─── PROJECT DATA ─── */
+const PROJ = [
+  { title:"<em>Between</em> Sand and Sea", plain:"Between Sand and Sea",
+    role:"Campaign Direction", disc:"Campaign Direction, Art Direction", yr:"2024",
+    url:"https://www.terzievi.com/sand-and-sea",
+    cover:"https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/3e22526b-1420-4c82-8802-3e95d29351e0/Untitled+design+%2823%29.png",
+    lead:"A campaign that captures the tension between stillness and movement — earth, water, and the body in between.",
+    body:"Shot across coastal locations, the work built a visual language balancing raw environmental texture with intentional styling. Every image stands alone while reading as part of a larger, emotionally coherent series.",
+    imgs:["https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/3e22526b-1420-4c82-8802-3e95d29351e0/Untitled+design+%2823%29.png","https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/82e5ee39-0968-4bad-b861-887c3eb03846/Untitled+design+%2822%29+copy.png"],
+    gl:"g2", gc:["full","wide"] },
+
+  { title:"Ashes to <em>Bloom</em>", plain:"Ashes to Bloom Fashion Show",
+    role:"Fashion Show Direction", disc:"Fashion Show Direction, Styling, Production", yr:"2024",
+    url:"https://www.terzievi.com/maya/bloom",
+    cover:"https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/1ab2e81b-f341-46f4-8f29-d7e4bac92ee7/Untitled+design+%288%29.png",
+    lead:"A fashion show exploring transformation — garments that carry stories of destruction and rebirth.",
+    body:"Full creative direction from concept to close: casting, styling, set design, music curation, run-of-show. The collection moved between dark and light, heavy and weightless — less fashion show, more theater.",
+    imgs:["https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/1ab2e81b-f341-46f4-8f29-d7e4bac92ee7/Untitled+design+%288%29.png","https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/3e3f08cf-1af7-47b5-b364-dbb665bd67d7/5.png","https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/4c29c55b-7d92-4204-9245-ce5ca1729524/Untitled+design+%2811%29.png"],
+    gl:"g3", gc:["full","tall","sq"] },
+
+  { title:"Morning on the <em>Caspian</em>", plain:"Morning on the Caspian",
+    role:"Photography · Editorial", disc:"Photography, Editorial Direction", yr:"2023",
+    url:"https://www.terzievi.com/morning-on-the-caspian",
+    cover:"https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/82e5ee39-0968-4bad-b861-887c3eb03846/Untitled+design+%2822%29+copy.png",
+    lead:"An editorial series shot at dawn — light, water, and quiet moments at the edge of the world.",
+    body:"Photographed at break of day on the Caspian Sea. Minimal styling lets the environment carry the image — fog, horizon, salt, skin. Part travel diary, part fashion editorial, part personal meditation.",
+    imgs:["https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/82e5ee39-0968-4bad-b861-887c3eb03846/Untitled+design+%2822%29+copy.png","https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/da417c67-8d4a-4b4d-8c8e-46da184e234f/8.png"],
+    gl:"g2", gc:["wide","wide"] },
+
+  { title:"<em>Love;</em> Unity", plain:"Love; Unity",
+    role:"Campaign · Photography", disc:"Campaign Direction, Photography", yr:"2023",
+    url:"https://www.terzievi.com/love-unity",
+    cover:"https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/4c29c55b-7d92-4204-9245-ce5ca1729524/Untitled+design+%2811%29.png",
+    lead:"A campaign rooted in community — portraits built around connection, culture, and belonging.",
+    body:"Real community members — friends, family, collaborators — photographed in honest, warm light. No styling that doesn't reflect how they actually dress. No direction that doesn't feel true.",
+    imgs:["https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/4c29c55b-7d92-4204-9245-ce5ca1729524/Untitled+design+%2811%29.png","https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/f5098941-89ce-4a98-88b6-ed8c5d3efcea/3.png","https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/0ca5c026-da94-466b-8849-0d00e592b957/6.png"],
+    gl:"g3", gc:["full","sq","sq"] },
+
+  { title:"Under the <em>Apricot</em> Tree", plain:"Under the Apricot Tree",
+    role:"Editorial · Art Direction", disc:"Editorial Direction, Art Direction, Styling", yr:"2023",
+    url:"https://www.terzievi.com/under-the-apricot-tree",
+    cover:"https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/da417c67-8d4a-4b4d-8c8e-46da184e234f/8.png",
+    lead:"A soft editorial set in summer — heat, fruit, and the intimacy of seasonal memory.",
+    body:"Shot in golden hour in a late-summer garden. Styling built around textures that complement the environment: linen, silk, worn cotton. The images feel like a memory you half-remember.",
+    imgs:["https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/da417c67-8d4a-4b4d-8c8e-46da184e234f/8.png","https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/82e5ee39-0968-4bad-b861-887c3eb03846/Untitled+design+%2822%29+copy.png"],
+    gl:"g2", gc:["tall","wide"] },
+
+  { title:"<em>Generational</em> Wealth", plain:"Generational Wealth",
+    role:"Campaign · Art Direction", disc:"Campaign Direction, Art Direction", yr:"2023",
+    url:"https://www.terzievi.com/generational-wealth",
+    cover:"https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/0ca5c026-da94-466b-8849-0d00e592b957/6.png",
+    lead:"A campaign built around legacy, aspiration, and the visual language of Black prosperity.",
+    body:"Exploring what it means to build something that lasts, and what that looks like visually. Rich tones, confident postures, objects of value. Aspirational without being unattainable.",
+    imgs:["https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/0ca5c026-da94-466b-8849-0d00e592b957/6.png","https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/f5098941-89ce-4a98-88b6-ed8c5d3efcea/3.png","https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/4cbf1b7b-37ef-4065-9a50-5db102006fa5/4.png"],
+    gl:"g3", gc:["full","wide","wide"] },
+
+  { title:"<em>Black Ivy</em> Fashion Show", plain:"Black Ivy Fashion Show",
+    role:"Fashion Show · Production", disc:"Fashion Show Direction, Styling, Production", yr:"2023",
+    url:"https://www.terzievi.com/black-ivy",
+    cover:"https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/3e3f08cf-1af7-47b5-b364-dbb665bd67d7/5.png",
+    lead:"A fashion show celebrating the intersection of academic tradition and Black creative culture.",
+    body:"Ivy League aesthetics filtered through a distinctly Black creative lens. Plaid and tweed reimagined. Produced from the ground up — casting, styling, music, set, run-of-show.",
+    imgs:["https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/3e3f08cf-1af7-47b5-b364-dbb665bd67d7/5.png","https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/1ab2e81b-f341-46f4-8f29-d7e4bac92ee7/Untitled+design+%288%29.png"],
+    gl:"g2", gc:["wide","tall"] },
+
+  { title:"Dreams Money <em>Can Buy</em>", plain:"Dreams Money Can Buy",
+    role:"Campaign · Photography", disc:"Campaign Direction, Photography", yr:"2022",
+    url:"https://www.terzievi.com/dreams-money-can-buy",
+    cover:"https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/4cbf1b7b-37ef-4065-9a50-5db102006fa5/4.png",
+    lead:"A visual exploration of desire and material culture — luxury, longing, and the stories we tell through things.",
+    body:"The objects of aspiration treated with both celebration and slight critique. Shot to blur the line between editorial and documentary. Beautiful. Uncomfortable. On purpose.",
+    imgs:["https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/4cbf1b7b-37ef-4065-9a50-5db102006fa5/4.png","https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/0ca5c026-da94-466b-8849-0d00e592b957/6.png","https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/25543c96-9ab2-48d5-bd02-1adc4461e41b/7.png"],
+    gl:"g3", gc:["full","sq","wide"] },
+
+  { title:"<em>Cha$e a Bag</em> Co.", plain:"Cha$e a Bag Co.",
+    role:"Brand · Fashion · UGC", disc:"Brand Identity, Apparel Design, UGC Direction", yr:"2021–Present",
+    url:"https://www.chaseabagco.com",
+    cover:"https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/25543c96-9ab2-48d5-bd02-1adc4461e41b/7.png",
+    lead:"Owner and creative director — end-to-end brand identity, apparel, content, and UGC direction for an independent fashion label.",
+    body:"Built from the ground up. Logo, brand voice, garment design, e-commerce, content strategy, and UGC direction all in-house. Every drop designed, shot, and directed by Maya.",
+    imgs:["https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/25543c96-9ab2-48d5-bd02-1adc4461e41b/7.png","https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/40761892-ec89-4290-a4bd-3aa705238b38/9.png"],
+    gl:"g2", gc:["wide","wide"] },
+
+  { title:"Packaging <em>Design</em> (UX)", plain:"Packaging Design (UX)",
+    role:"UX · Product Design", disc:"UX Design, Packaging, Visual Design", yr:"2024",
+    url:"https://www.terzievi.com/maya/packaging",
+    cover:"https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/0a74ee73-5385-4468-acd7-ace63839ee35/14.png",
+    lead:"Product and packaging design informed by user experience — where touch, form, and first impressions meet.",
+    body:"UX thinking applied to physical packaging — researching how customers interact with boxes, labels, and unboxing sequences, translating those insights into design decisions that feel considered at every touchpoint.",
+    imgs:["https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/0a74ee73-5385-4468-acd7-ace63839ee35/14.png","https://images.squarespace-cdn.com/content/v1/686332f60b484e68bb6e991f/98d30367-85c1-4a51-a3e5-c9ee027e7857/Untitled+design+%285%29.png"],
+    gl:"g2", gc:["wide","tall"] },
+];
+
+/* ─── CURSOR ─── */
+const dot = document.getElementById('dot');
+const ring = document.getElementById('ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx=e.clientX; my=e.clientY;
+  dot.style.left=mx+'px'; dot.style.top=my+'px';
+});
+(function tick(){
+  rx+=(mx-rx)*.1; ry+=(my-ry)*.1;
+  ring.style.left=rx+'px'; ring.style.top=ry+'px';
+  requestAnimationFrame(tick);
+})();
+document.querySelectorAll('a,button,input,textarea,select,.proj-row,.cat-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+});
+
+/* ─── FLOATING IMAGE ─── */
+const floatEl  = document.getElementById('float-img');
+const floatImg = document.getElementById('float-src');
+let fx=0,fy=0,ftx=0,fty=0;
+document.addEventListener('mousemove', e=>{ ftx=e.clientX; fty=e.clientY; });
+(function af(){
+  fx+=(ftx-fx)*.09; fy+=(fty-fy)*.09;
+  floatEl.style.left=fx+'px'; floatEl.style.top=fy+'px';
+  requestAnimationFrame(af);
+})();
+
+document.querySelectorAll('.proj-row').forEach(row=>{
+  row.addEventListener('mouseenter',()=>{
+    const src=row.dataset.img;
+    if(src){ floatImg.src=src; floatEl.classList.add('show'); }
+  });
+  row.addEventListener('mouseleave',()=>floatEl.classList.remove('show'));
+  row.addEventListener('click',()=>openProj(parseInt(row.dataset.idx)));
+});
+
+/* ─── PAGE SWITCHING ─── */
+function show(id){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  window.scrollTo(0,0);
+  floatEl.classList.remove('show');
+}
+
+/* ─── OPEN PROJECT ─── */
+function openProj(i){
+  const p=PROJ[i];
+  document.getElementById('pd-t').innerHTML=p.title;
+  document.getElementById('pd-r').textContent=p.role;
+  document.getElementById('pd-y').textContent=p.yr;
+  document.getElementById('pd-hi').src=p.cover;
+  document.getElementById('pd-hi').alt=p.plain;
+  document.getElementById('pd-disc').textContent=p.disc;
+  document.getElementById('pd-role2').textContent=p.role;
+  document.getElementById('pd-yr2').textContent=p.yr;
+  document.getElementById('pd-lead').textContent=p.lead;
+  document.getElementById('pd-body').textContent=p.body;
+  document.getElementById('pd-link').href=p.url;
+  const g=document.getElementById('pd-gal');
+  g.className='pd-gg '+p.gl;
+  g.innerHTML=p.imgs.map((src,j)=>
+    `<div class="pd-gi ${p.gc[j]||'wide'}"><img src="${src}" alt="${p.plain}" loading="lazy"></div>`
+  ).join('');
+  show('pg-proj');
+}
+
+/* ─── CONTACT FORM ─── */
+document.getElementById('cf-send').addEventListener('click',()=>{
+  const n=document.getElementById('cf-n').value.trim();
+  const e=document.getElementById('cf-e').value.trim();
+  const m=document.getElementById('cf-m').value.trim();
+  if(!n||!e||!m) return;
+  document.getElementById('cf-wrap').style.display='none';
+  document.getElementById('cf-ok').classList.add('on');
+});
+</script>
+</body>
+</html>
