@@ -1,1 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Between Sand and Sea — Maya Terzi</title>
+
+<link rel="icon" type="image/png" href="favicon.png">
+
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+:root{
+--white:#fff;
+--ink:#0e0e0e;
+--accent:#e67d43;
+--pad:48px;
+}
+
+body{
+background:#fff;
+color:var(--ink);
+font-family:'Inter',sans-serif;
+font-weight:300;
+}
+
+/* ---------- NAV ---------- */
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:24px var(--pad);
+}
+
+.n-logo{
+font-size:11px;
+letter-spacing:.18em;
+text-transform:uppercase;
+font-weight:500;
+color:var(--ink);
+text-decoration:none;
+transition:.2s;
+}
+
+.n-logo:hover{
+color:var(--accent);
+}
+
+.n-links{
+display:flex;
+gap:40px;
+}
+
+.n-link{
+font-size:11px;
+letter-spacing:.18em;
+text-transform:uppercase;
+text-decoration:none;
+color:var(--ink);
+opacity:.45;
+transition:.2s;
+}
+
+.n-link:hover{
+opacity:1;
+color:var(--accent);
+}
+
+/* ---------- INTRO ---------- */
+
+.project-intro{
+    max-width:1200px;
+    margin:120px auto 220px;
+    padding:0 var(--pad);
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:120px;
+    align-items:end;
+}
+
+.project-heading{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.project-number{
+    font-size:10px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:rgba(0,0,0,.35);
+    transition:.3s;
+}
+
+.project-title{
+    font-family:'EB Garamond',serif;
+    font-size:clamp(4rem,9vw,8rem);
+    font-weight:400;
+    line-height:.95;
+    letter-spacing:-.03em;
+}
+
+.project-title a{
+    color:var(--ink);
+    text-decoration:none;
+    transition:color .35s ease;
+}
+
+.project-heading:hover .project-title a,
+.project-heading:hover .project-number{
+    color:var(--accent);
+}
+
+.project-meta{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.18em;
+    line-height:2;
+    color:rgba(0,0,0,.55);
+}
+
+/* ---------- IMAGE STORY ---------- */
+
+.story{
+
+max-width:1600px;
+margin:auto;
+padding:0 var(--pad) 200px;
+
+}
+
+/* every image block */
+
+.frame{
+
+margin-bottom:220px;
+
+}
+
+.frame img{
+
+width:100%;
+display:block;
+
+}
+
+/* editorial sizing */
+
+.wide{
+
+width:72%;
+margin-left:0;
+
+}
+
+.tall{
+
+width:34%;
+margin-left:auto;
+
+}
+
+.medium{
+
+width:48%;
+margin-left:12%;
+
+}
+
+.small{
+
+width:28%;
+margin-left:58%;
+
+}
+
+.large{
+
+width:66%;
+margin:auto;
+
+}
+
+.caption{
+
+margin-top:18px;
+
+font-size:11px;
+letter-spacing:.16em;
+text-transform:uppercase;
+color:rgba(0,0,0,.45);
+
+}
+
+/* ---------- MOBILE ---------- */
+
+@media(max-width:900px){
+
+:root{
+--pad:24px;
+}
+
+.project-intro{
+
+grid-template-columns:1fr;
+gap:40px;
+margin:80px auto 120px;
+
+}
+
+.project-title{
+
+font-size:58px;
+
+}
+
+.frame{
+
+margin-bottom:80px;
+
+}
+
+.wide,
+.medium,
+.tall,
+.small,
+.large{
+
+width:100%;
+margin-left:0;
+
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+
+<a href="index" class="n-logo">Maya Terzi</a>
+
+<div class="n-links">
+
+<a href="projects" class="n-link">Projects</a>
+<a href="maya" class="n-link">About</a>
+<a href="connect" class="n-link">Connect</a>
+
+</div>
+
+</nav>
+
+
+<section class="project-intro">
+
+    <div class="project-heading">
+
+        <div class="project-number">01</div>
+
+        <h1 class="project-title">
+            <a href="#">
+                Between<br>Sand and Sea
+            </a>
+        </h1>
+
+    </div>
+
+    <div class="project-meta">
+
+        Fashion Design<br>
+        Creative Direction<br>
+        Campaign Development
+
+        <br><br>
+
+        Spring / Summer 2026
+
+    </div>
+
+</section>
+
+
+<section class="story">
+
+<div class="frame wide">
+
+<img src="image1.jpg">
+
+<div class="caption">
+Campaign Image 01
+</div>
+
+</div>
+
+
+<div class="frame tall">
+
+<img src="image2.jpg">
+
+<div class="caption">
+Look One
+</div>
+
+</div>
+
+
+<div class="frame medium">
+
+<img src="image3.jpg">
+
+<div class="caption">
+Fabric + Detail
+</div>
+
+</div>
+
+
+<div class="frame small">
+
+<img src="image4.jpg">
+
+<div class="caption">
+Behind the Scenes
+</div>
+
+</div>
+
+
+<div class="frame large">
+
+<img src="image5.jpg">
+
+<div class="caption">
+Final Campaign
+</div>
+
+</div>
+
+</section>
+
+</body>
+</html>
 
