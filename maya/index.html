@@ -89,9 +89,64 @@ nav {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  gap: 100px;
+  gap: 90px;
   max-width: 1200px;
   width: 100%;
+  position: relative;
+}
+
+/* CENTER IMAGE BLOCK */
+.left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+
+.about-img {
+  width: 280px;
+  height: 360px;
+  object-fit: cover;
+  margin-bottom: 40px;
+  display: block;
+}
+
+/* keep text centered under image */
+.about-title {
+  font-family: 'EB Garamond', serif;
+  font-size: 42px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+
+.about-text {
+  font-size: 14px;
+  line-height: 1.8;
+  color: rgba(0,0,0,.75);
+  max-width: 520px;
+  text-align: center;
+}
+
+/* ALIGN COLUMNS TO TOP */
+.skills, .tools {
+  color: var(--accent);
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  line-height: 2.2;
+  max-width: 220px;
+  margin-top: 110px; /* KEY: aligns with body text start */
+}
+
+/* TITLES */
+.skills-title, .tools-title {
+  font-family: 'EB Garamond', serif;
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 24px;
+  color: var(--accent);
 }
 
 /* ─── LEFT ─── */
