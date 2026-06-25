@@ -23,31 +23,49 @@ body {
   font-weight: 300;
 }
 
-/* ─── NAV ─── */
-nav {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  z-index: 10;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 22px var(--pad);
-  background: transparent;
-}
-.n-logo {
-  font-size: 11px; font-weight: 500;
-  letter-spacing: .18em; text-transform: uppercase;
-  color: var(--white); text-decoration: none;
-}
-.n-links { display: flex; gap: 36px; }
-.n-link {
-  font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
-  color: var(--white); text-decoration: none; opacity: .45;
-  transition: opacity .15s;
-}
-.n-link:hover { opacity: 1; }
-.n-link.active { opacity: 1; color: var(--accent); }
+/* ---------- NAV ---------- */
 
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:24px var(--pad);
+}
+
+.n-logo{
+font-size:11px;
+letter-spacing:.18em;
+text-transform:uppercase;
+font-weight:500;
+color:var(--ink);
+text-decoration:none;
+transition:.2s;
+}
+
+.n-logo:hover{
+color:var(--accent);
+}
+
+.n-links{
+display:flex;
+gap:40px;
+}
+
+.n-link{
+font-size:11px;
+letter-spacing:.18em;
+text-transform:uppercase;
+text-decoration:none;
+color:var(--ink);
+opacity:.45;
+transition:.2s;
+}
+
+.n-link:hover{
+opacity:1;
+color:var(--accent);
+}
+  
 /* ─── GRID ─── */
 .proj-grid {
   display: grid;
