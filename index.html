@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Projects — Maya Terzi</title>
+<title>Maya Terzi</title>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -13,323 +13,143 @@
   --ink:    #0e0e0e;
   --accent: #e67d43;
   --pad:    48px;
-  --gap:    3px;
 }
+
+html, body { height: 100%; }
 
 body {
   background: var(--ink);
   color: var(--white);
   font-family: 'Inter', sans-serif;
   font-weight: 300;
+  overflow: hidden;
 }
 
 /* ─── NAV ─── */
 nav {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  z-index: 10;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 22px var(--pad);
-  background: transparent;
+  position: relative; z-index: 10;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 24px var(--pad);
 }
 .n-logo {
   font-size: 11px; font-weight: 500;
   letter-spacing: .18em; text-transform: uppercase;
   color: var(--white); text-decoration: none;
 }
-.n-links { display: flex; gap: 36px; }
+.n-links { display: flex; gap: 40px; }
 .n-link {
-  font-size: 11px; letter-spacing: .14em; text-transform: uppercase;
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
   color: var(--white); text-decoration: none; opacity: .45;
   transition: opacity .15s;
 }
 .n-link:hover { opacity: 1; }
-.n-link.active { opacity: 1; color: var(--accent); }
 
-/* ─── GRID ─── */
-/*
-  Layout: 2-column of varied-size cells.
-  Each cell uses padding-top trick for aspect ratio (no CSS aspect-ratio
-  so it works reliably across all browsers and grid contexts).
-
-  Column widths:
-    col-7  = 7/12 of viewport width (minus gaps)
-    col-5  = 5/12
-    col-6  = 6/12
-    col-4  = 4/12
-
-  Row heights are set so each cell is between 1:1 (square) and 4:5.
-  We use padding-top % relative to the cell's own width to lock ratio.
-
-  padding-top: 100%   = 1:1 square
-  padding-top: 125%   = 4:5 portrait (tallest allowed)
-
-  Since padding-top in a grid cell is relative to the COLUMN width,
-  we set it explicitly per cell.
-*/
-
-.proj-grid {
-  display: grid;
-  grid-template-columns: 7fr 5fr;
-  gap: 0;
-  background: var(--ink);
-  width: 100%;
-}
-
-/* Every cell uses a padding-top inner to enforce ratio */
-.gi {
+/* ─── HERO ─── */
+#hero {
   position: relative;
+  height: 100vh;
   overflow: hidden;
-  background: #1a1a1a;
-}
-
-.gi-inner {
-  position: absolute;
-  inset: 0;
-}
-
-/* Ratio shims — padding-top creates the box height */
-.gi::before {
-  content: '';
-  display: block;
-}
-
-/* Col-7 cells (left column ~58.3vw wide):
-   square  = 100%
-   4:5     = 125%                                  */
-.gi.r-sq::before  { padding-top: 100%; }
-.gi.r-tall::before { padding-top: 125%; }
-
-/* Col-5 cells (right column ~41.6vw wide) same ratios */
-/* We use the same classes; ratio is relative to own width */
-
-/* Spanning both columns */
-.gi.span-2 {
-  grid-column: span 2;
-}
-/* For span-2, cell is full width so 100% = square, 83.33% ≈ 6:5 (wider) */
-.gi.span-2.r-sq::before   { padding-top: 50%; }   /* wide landscape — keep it short */
-.gi.span-2.r-tall::before { padding-top: 75%; }   /* closer to square across full width */
-
-.gi a {
-  position: absolute;
-  inset: 0;
-  display: block;
-  text-decoration: none;
-  color: inherit;
-}
-
-.gi img {
-  width: 100%; height: 100%;
-  object-fit: cover; display: block;
-  transition: transform .7s cubic-bezier(.23,1,.32,1), filter .5s;
-  filter: brightness(.9);
-}
-.gi:hover img {
-  transform: scale(1.05);
-  filter: brightness(.4);
-}
-
-/* Hover info overlay */
-.gi-info {
-  position: absolute;
-  inset: 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding: 24px 22px;
-  opacity: 0;
-  transition: opacity .3s cubic-bezier(.23,1,.32,1);
-  pointer-events: none;
-  z-index: 2;
 }
-.gi:hover .gi-info { opacity: 1; }
 
-.gi-num {
-  font-size: 10px; letter-spacing: .2em;
-  color: var(--accent); margin-bottom: 7px;
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
 }
-.gi-title {
+.hero-bg img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.hero-veil {
+  position: absolute; inset: 0; z-index: 1;
+  background: rgba(10,10,10,.55);
+}
+
+nav { flex-shrink: 0; }
+
+.hero-content {
+  position: relative; z-index: 5;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cat-stack {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 80px;
+}
+
+.cat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--white);
+  transition: color .3s ease;
+  white-space: nowrap;
+}
+.cat-item:hover { color: var(--accent); }
+
+.cat-num {
+  font-size: 10px; font-weight: 400;
+  letter-spacing: .22em;
+  opacity: .4;
+  transition: opacity .3s;
+}
+.cat-item:hover .cat-num { opacity: 1; }
+
+.cat-title {
   font-family: 'EB Garamond', serif;
-  font-size: clamp(1.1rem, 2vw, 2rem);
-  font-weight: 400; line-height: 1.05;
-  color: var(--white); margin-bottom: 7px;
-}
-.gi-role {
-  font-size: 10px; letter-spacing: .15em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.5);
+  font-size: clamp(3rem, 7vw, 7rem);
+  font-weight: 400; line-height: 1;
+  letter-spacing: -.02em;
+  white-space: nowrap;
 }
 
 /* ─── MOBILE ─── */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   :root { --pad: 20px; }
-  .proj-grid { grid-template-columns: 1fr 1fr; }
-  .gi.span-2 { grid-column: span 2; }
-  .gi::before { padding-top: 100% !important; }
-  .gi.span-2::before { padding-top: 60% !important; }
+  .cat-stack { gap: 32px; flex-direction: column; align-items: flex-start; padding: 0 var(--pad); }
+  .cat-title { font-size: clamp(2.4rem, 11vw, 7rem); }
+  .n-links .n-link:not(:last-child) { display: none; }
 }
 </style>
 </head>
 <body>
 
-<nav>
-  <a href="index.html" class="n-logo">Maya Terzi</a>
-  <div class="n-links">
-    <a href="projects.html" class="n-link active">Projects</a>
-    <a href="about.html" class="n-link">About</a>
-    <a href="contact.html" class="n-link">Contact</a>
+<section id="hero">
+  <div class="hero-bg">
+    <img src="hero.png"
+         alt="" onerror="this.style.display='none'">
   </div>
-</nav>
+  <div class="hero-veil"></div>
 
-<div class="proj-grid">
+  <nav>
+    <a href="index.html" class="n-logo">Maya Terzi</a>
+    <div class="n-links">
+      <a href="projects.html" class="n-link">Projects</a>
+      <a href="about.html" class="n-link">About</a>
+      <a href="contact.html" class="n-link">Contact</a>
+    </div>
+  </nav>
 
-  <!-- 01 — left col, tall portrait -->
-  <div class="gi r-tall">
-    <a href="between-sand-and-sea.html">
-      <img src="Between.png" alt="Between Sand and Sea">
-      <div class="gi-info">
-        <div class="gi-num">01</div>
-        <div class="gi-title">Between Sand and Sea</div>
-        <div class="gi-role">Campaign Direction</div>
-      </div>
-    </a>
+  <div class="hero-content">
+    <div class="cat-stack">
+      <a class="cat-item" href="projects.html">
+        <span class="cat-num">01</span>
+        <span class="cat-title">Creative Direction</span>
+      </a>
+      <a class="cat-item" href="about.html">
+        <span class="cat-num">02</span>
+        <span class="cat-title">Maya Terzi</span>
+      </a>
+    </div>
   </div>
+</section>
 
-  <!-- 02 — right col, square -->
-  <div class="gi r-sq">
-    <a href="ashes-to-bloom.html">
-      <img src="Bloom.png" alt="Ashes to Bloom">
-      <div class="gi-info">
-        <div class="gi-num">02</div>
-        <div class="gi-title">Ashes to Bloom</div>
-        <div class="gi-role">Fashion Show Direction</div>
-      </div>
-    </a>
-  </div>
-
-  <!-- 03 — left col, square -->
-  <div class="gi r-sq">
-    <a href="morning-on-the-caspian.html">
-      <img src="Caspian.png" alt="Morning on the Caspian">
-      <div class="gi-info">
-        <div class="gi-num">03</div>
-        <div class="gi-title">Morning on the Caspian</div>
-        <div class="gi-role">Photography · Editorial</div>
-      </div>
-    </a>
-  </div>
-
-  <!-- 04 — right col, tall portrait -->
-  <div class="gi r-tall">
-    <a href="love-unity.html">
-      <img src="Love.png" alt="Love; Unity">
-      <div class="gi-info">
-        <div class="gi-num">04</div>
-        <div class="gi-title">Love; Unity</div>
-        <div class="gi-role">Campaign · Photography</div>
-      </div>
-    </a>
-  </div>
-
-  <!-- 05 — left col, tall portrait -->
-  <div class="gi r-tall">
-    <a href="under-the-apricot-tree.html">
-      <img src="Under.png" alt="Under the Apricot Tree">
-      <div class="gi-info">
-        <div class="gi-num">05</div>
-        <div class="gi-title">Under the Apricot Tree</div>
-        <div class="gi-role">Editorial · Art Direction</div>
-      </div>
-    </a>
-  </div>
-
-  <!-- 06 — right col, square -->
-  <div class="gi r-sq">
-    <a href="the-walk-thru.html">
-      <img src="Blog1.png" alt="The Walk Thru">
-      <div class="gi-info">
-        <div class="gi-num">06</div>
-        <div class="gi-title">The Walk Thru</div>
-        <div class="gi-role">Editorial · Fashion Blog</div>
-      </div>
-    </a>
-  </div>
-
-  <!-- 07 — full width -->
-  <div class="gi span-2 r-tall">
-    <a href="photo-video.html">
-      <img src="Photo.png" alt="Photo & Video">
-      <div class="gi-info">
-        <div class="gi-num">07</div>
-        <div class="gi-title">Photo &amp; Video</div>
-        <div class="gi-role">Photography · Video</div>
-      </div>
-    </a>
-  </div>
-
-  <!-- 08 — left col, tall -->
-  <div class="gi r-tall">
-    <a href="generational-wealth.html">
-      <img src="Generational.png" alt="Generational Wealth">
-      <div class="gi-info">
-        <div class="gi-num">08</div>
-        <div class="gi-title">Generational Wealth</div>
-        <div class="gi-role">Campaign · Art Direction</div>
-      </div>
-    </a>
-  </div>
-
-  <!-- 09 — right col, square -->
-  <div class="gi r-sq">
-    <a href="black-ivy.html">
-      <img src="Ivy.png" alt="Black Ivy Fashion Show">
-      <div class="gi-info">
-        <div class="gi-num">09</div>
-        <div class="gi-title">Black Ivy Fashion Show</div>
-        <div class="gi-role">Fashion Show · Production</div>
-      </div>
-    </a>
-  </div>
-
-  <!-- 10 — left col, square -->
-  <div class="gi r-sq">
-    <a href="dreams-money-can-buy.html">
-      <img src="Dreams.png" alt="Dreams Money Can Buy">
-      <div class="gi-info">
-        <div class="gi-num">10</div>
-        <div class="gi-title">Dreams Money Can Buy</div>
-        <div class="gi-role">Campaign · Photography</div>
-      </div>
-    </a>
-  </div>
-
-  <!-- 11 — right col, tall -->
-  <div class="gi r-tall">
-    <a href="packaging-design.html">
-      <img src="Packaging.png" alt="Packaging Design">
-      <div class="gi-info">
-        <div class="gi-num">11</div>
-        <div class="gi-title">Packaging Design (UX)</div>
-        <div class="gi-role">UX · Product Design</div>
-      </div>
-    </a>
-  </div>
-
-  <!-- 12 — full width -->
-  <div class="gi span-2 r-sq">
-    <a href="chase-a-bag.html">
-      <img src="Cha$e.png" alt="Cha$e a Bag Co.">
-      <div class="gi-info">
-        <div class="gi-num">12</div>
-        <div class="gi-title">Cha$e a Bag Co.</div>
-        <div class="gi-role">Brand · Fashion · UGC</div>
-      </div>
-    </a>
-  </div>
-
-</div>
 </body>
 </html>
