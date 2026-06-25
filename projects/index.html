@@ -3,24 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Projects — Maya Terzi</title>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-:root {
-  --white:  #ffffff;
-  --ink:    #0e0e0e;
-  --accent: #e67d43;
-  --pad:    48px;
-  --gap:    3px;
+<title>Projects — Maya Terzi</title>
+
+<link rel="icon" type="image/png" href="favicon.png">
+
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
-body {
-  background: var(--ink);
-  color: var(--white);
-  font-family: 'Inter', sans-serif;
-  font-weight: 300;
+:root{
+--white:#fff;
+--ink:#0e0e0e;
+--accent:#e67d43;
+--pad:40px;
+}
+
+body{
+background:#fff;
+color:var(--ink);
+font-family:'Inter',sans-serif;
+font-weight:300;
 }
 
 /* ---------- NAV ---------- */
@@ -42,14 +51,9 @@ text-decoration:none;
 transition:.2s;
 }
 
-.n-logo:hover{
-color:var(--accent);
-}
+.n-logo:hover{ color:var(--accent); }
 
-.n-links{
-display:flex;
-gap:40px;
-}
+.n-links{ display:flex; gap:40px; }
 
 .n-link{
 font-size:11px;
@@ -65,275 +69,204 @@ transition:.2s;
 opacity:1;
 color:var(--accent);
 }
-  
-/* ─── GRID ─── */
-.proj-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  background: var(--ink);
-  width: 100%;
+
+/* ---------- STORY LAYOUT ---------- */
+
+.story{
+max-width:1600px;
+margin:auto;
+padding:40px var(--pad) 140px;
 }
 
-.gi {
-  position: relative;
-  overflow: hidden;
-  background: #1a1a1a;
+/* frame base */
+
+.frame{
+margin-bottom:140px;
 }
 
-/* ratio shims */
-.gi::before { content: ''; display: block; }
-.gi.r-sq::before   { padding-top: 100%; }   /* 1:1  */
-.gi.r-tall::before { padding-top: 125%; }   /* 4:5  */
-
-/* 2-col span — sits across 2 of the 3 columns */
-.gi.span-2 { grid-column: span 2; }
-.gi.span-2.r-sq::before   { padding-top: 50%; }   /* 2:1  */
-.gi.span-2.r-tall::before { padding-top: 62.5%; } /* 8:5  */
-
-/* 3-col span — full width */
-.gi.span-3 { grid-column: span 3; }
-.gi.span-3.r-sq::before   { padding-top: 33.33%; }
-.gi.span-3.r-tall::before { padding-top: 41.67%; }
-
-.gi a {
-  position: absolute; inset: 0;
-  display: block;
-  text-decoration: none;
-  color: inherit;
+.frame a{
+display:block;
+text-decoration:none;
+color:inherit;
 }
 
-.gi img {
-  width: 100%; height: 100%;
-  object-fit: cover; display: block;
-  transition: transform .7s cubic-bezier(.23,1,.32,1), filter .5s;
-  filter: brightness(.9);
-}
-.gi:hover img {
-  transform: scale(1.05);
-  filter: brightness(.4);
+/* images */
+
+.frame img{
+width:100%;
+display:block;
+transition:transform .6s ease, filter .4s ease;
 }
 
-.gi-info {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column;
-  justify-content: flex-end;
-  padding: 20px 18px;
-  opacity: 0;
-  transition: opacity .3s cubic-bezier(.23,1,.32,1);
-  pointer-events: none;
-  z-index: 2;
-}
-.gi:hover .gi-info { opacity: 1; }
-
-.gi-num {
-  font-size: 10px; letter-spacing: .2em;
-  color: var(--accent); margin-bottom: 6px;
-}
-.gi-title {
-  font-family: 'EB Garamond', serif;
-  font-size: clamp(1rem, 1.8vw, 1.8rem);
-  font-weight: 400; line-height: 1.05;
-  color: var(--white); margin-bottom: 6px;
-}
-.gi-role {
-  font-size: 10px; letter-spacing: .15em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.5);
+.frame a:hover img{
+transform:scale(1.03);
+filter:brightness(.85);
 }
 
-/* ─── MOBILE ─── */
-@media (max-width: 768px) {
-  :root { --pad: 20px; }
-  .cat-stack { gap: 32px; flex-direction: column; align-items: flex-start; padding: 0 var(--pad); }
-  .cat-title { font-size: clamp(2.4rem, 11vw, 7rem); }
-  .n-links .n-link:not(:last-child) { display: none; }
+/* caption */
+
+.caption{
+margin-top:14px;
+font-size:11px;
+letter-spacing:.16em;
+text-transform:uppercase;
+color:rgba(0,0,0,.45);
+transition:.3s;
 }
+
+.frame a:hover .caption{
+color:var(--accent);
+}
+
+/* ---------- LAYOUT VARIATIONS ---------- */
+
+.wide{ width:72%; margin-left:0; }
+.tall{ width:34%; margin-left:auto; }
+.medium{ width:48%; margin-left:12%; }
+.small{ width:28%; margin-left:58%; }
+.large{ width:66%; margin:auto; }
+
+/* ---------- MOBILE ---------- */
+
+@media(max-width:900px){
+
+:root{ --pad:24px; }
+
+.story{ padding:30px var(--pad) 100px; }
+
+.frame{ margin-bottom:80px; }
+
+.wide,.tall,.medium,.small,.large{
+width:100%;
+margin-left:0;
+}
+
+.n-links{ gap:20px; }
+
+}
+
 </style>
 </head>
+
 <body>
 
-<section id="hero">
-  <div class="hero-bg">
-    <img src="hero.png"
-         alt="" onerror="this.style.display='none'">
-  </div>
-  <div class="hero-veil"></div>
+<nav>
+<a href="https://mayaterzi.com" class="n-logo">Maya Terzi</a>
 
-  <nav>
-    <a href="http://mayaterzi.com" class="n-logo">Maya Terzi</a>
-    <div class="n-links">
-      <a href="http://mayaterzi.com/projects" class="n-link">Projects</a>
-      <a href="http://mayaterzi.com/smaya" class="n-link">About</a>
-      <a href="http://mayaterzi.com/connect" class="n-link">Connect</a>
-    </div>
-  </nav>
+<div class="n-links">
+<a href="https://mayaterzi.com/projects" class="n-link">Projects</a>
+<a href="https://mayaterzi.com/maya" class="n-link">About</a>
+<a href="https://mayaterzi.com/connect" class="n-link">Connect</a>
+</div>
+</nav>
 
-  <div class="hero-content">
-    <div class="cat-stack">
-      <a class="cat-item" href="projects">
-        <span class="cat-num">01</span>
-        <span class="cat-title">Creative Direction</span>
-      </a>
-      <a class="cat-item" href="maya">
-        <span class="cat-num">02</span>
-        <span class="cat-title">Maya Terzi</span>
-      </a>
-    </div>
-  </div>
+<section class="story">
+
+<!-- 01 -->
+<div class="frame wide">
+  <a href="https://mayaterzi.com/projects/between">
+    <img src="Between.png" alt="">
+    <div class="caption">01 — Between Sand and Sea · Fashion Design / Campaign Building</div>
+  </a>
+</div>
+
+<!-- 02 -->
+<div class="frame tall">
+  <a href="https://mayaterzi.com/projects/bloom">
+    <img src="Bloom.png" alt="">
+    <div class="caption">02 — Ashes to Bloom · Runway Fashion Design</div>
+  </a>
+</div>
+
+<!-- 03 -->
+<div class="frame medium">
+  <a href="https://mayaterzi.com/projects/caspian">
+    <img src="Caspian.png" alt="">
+    <div class="caption">03 — Morning on the Caspian · Fashion Design / Campaign Building</div>
+  </a>
+</div>
+
+<!-- 04 -->
+<div class="frame large">
+  <a href="https://mayaterzi.com/projects/under">
+    <img src="Under.png" alt="">
+    <div class="caption">04 — Under the Apricot Tree · Editorial / Art Direction</div>
+  </a>
+</div>
+
+<!-- 05 -->
+<div class="frame small">
+  <a href="https://mayaterzi.com/projects/love">
+    <img src="Love.png" alt="">
+    <div class="caption">05 — Love; Unity · Fashion Design / Campaign</div>
+  </a>
+</div>
+
+<!-- 06 -->
+<div class="frame wide">
+  <a href="https://thewalkthru.blog/">
+    <img src="Walk.png" alt="">
+    <div class="caption">06 — The Walk Thru · Editorial / Fashion Blog</div>
+  </a>
+</div>
+
+<!-- 07 -->
+<div class="frame tall">
+  <a href="https://mayaterzi.com/projects/photo">
+    <img src="Photo.png" alt="">
+    <div class="caption">07 — Photo & Video · Photography / Video</div>
+  </a>
+</div>
+
+<!-- 08 -->
+<div class="frame medium">
+  <a href="https://mayaterzi.com/projects/packaging">
+    <img src="Packaging.png" alt="">
+    <div class="caption">08 — Packaging Design · UX / Product Design</div>
+  </a>
+</div>
+
+<!-- 09 -->
+<div class="frame large">
+  <a href="https://mayaterzi.com/projects/generational">
+    <img src="Generational.png" alt="">
+    <div class="caption">09 — Generational Wealth · Creative Direction</div>
+  </a>
+</div>
+
+<!-- 10 -->
+<div class="frame wide">
+  <a href="https://mayaterzi.com/projects/ivy">
+    <img src="Ivy.png" alt="">
+    <div class="caption">10 — Black Ivy Fashion Show · Production / Runway</div>
+  </a>
+</div>
+
+<!-- 11 -->
+<div class="frame tall">
+  <a href="https://mayaterzi.com/projects/dreams">
+    <img src="Dreams.png" alt="">
+    <div class="caption">11 — Dreams Money Can Buy · Creative Direction</div>
+  </a>
+</div>
+
+<!-- 12 -->
+<div class="frame medium">
+  <a href="https://mayaterzi.com/projects/wealthy">
+    <img src="Wealth.png" alt="">
+    <div class="caption">12 — Wealthy Minds · Creative Direction</div>
+  </a>
+</div>
+
+<!-- 13 -->
+<div class="frame small">
+  <a href="https://mayaterzi.com/projects/ps3">
+    <img src="PS3.png" alt="">
+    <div class="caption">13 — Preston Settles Basketball Tournament · Operations / Merch</div>
+  </a>
+</div>
+
 </section>
 
-</body>
-</html>
-
-  <!-- row 1: 3 across -->
-  <div class="gi r-sq">
-    <a href="https://mayaterzi.com/projects/between">
-      <img src="Between.png" alt="Between Sand and Sea">
-      <div class="gi-info">
-        <div class="gi-num">01</div>
-        <div class="gi-title">Between Sand and Sea</div>
-        <div class="gi-role">Fashion Design · Campaign Building</div>
-      </div>
-    </a>
-  </div>
-
-  <div class="gi r-tall">
-    <a href="https://mayaterzi.com/projects/bloom">
-      <img src="Bloom.png" alt="Ashes to Bloom">
-      <div class="gi-info">
-        <div class="gi-num">02</div>
-        <div class="gi-title">Ashes to Bloom</div>
-        <div class="gi-role">Runway Fashion Design</div>
-      </div>
-    </a>
-  </div>
-
-  <div class="gi r-sq">
-    <a href="https://mayaterzi.com/projects/caspian">
-      <img src="Caspian.png" alt="Morning on the Caspian">
-      <div class="gi-info">
-        <div class="gi-num">03</div>
-        <div class="gi-title">Morning on the Caspian</div>
-        <div class="gi-role">Fashion Design · Campaign Building</div>
-      </div>
-    </a>
-  </div>
-
-  <!-- row 2: 2 across (span-2 + 1) -->
-  <div class="gi span-2 r-tall">
-    <a href="https://mayaterzi.com/projects/under">
-      <img src="Under.png" alt="Under the Apricot Tree">
-      <div class="gi-info">
-        <div class="gi-num">04</div>
-        <div class="gi-title">Under the Apricot Tree</div>
-        <div class="gi-role">Editorial · Art Direction</div>
-      </div>
-    </a>
-  </div>
-
-  <div class="gi r-tall">
-    <a href="https://mayaterzi.com/projects/love">
-      <img src="Love.png" alt="Love; Unity">
-      <div class="gi-info">
-        <div class="gi-num">05</div>
-        <div class="gi-title">Love; Unity</div>
-        <div class="gi-role">Fashion Design · Campaign Building</div>
-      </div>
-    </a>
-  </div>
-
-  <!-- row 3: 3 across -->
-  <div class="gi r-sq">
-    <a href="https://thewalkthru.blog/">
-      <img src="Walk.png" alt="The Walk Thru">
-      <div class="gi-info">
-        <div class="gi-num">06</div>
-        <div class="gi-title">The Walk Thru</div>
-        <div class="gi-role">Editorial · Fashion Blog</div>
-      </div>
-    </a>
-  </div>
-
-  <div class="gi r-tall">
-    <a href="https://mayaterzi.com/projects/photo">
-      <img src="Photo.png" alt="Photo & Video">
-      <div class="gi-info">
-        <div class="gi-num">07</div>
-        <div class="gi-title">Photo &amp; Video</div>
-        <div class="gi-role">Photography · Video</div>
-      </div>
-    </a>
-  </div>
-
-  <div class="gi r-sq">
-    <a href="https://mayaterzi.com/projects/packaging">
-      <img src="Packaging.png" alt="Packaging Design">
-      <div class="gi-info">
-        <div class="gi-num">08</div>
-        <div class="gi-title">Packaging Design</div>
-        <div class="gi-role">UX · Product Design</div>
-      </div>
-    </a>
-  </div>
-
-  <!-- row 4: 1 + span-2 -->
-  <div class="gi r-sq">
-    <a href="https://mayaterzi.com/projects/generational">
-      <img src="Generational.png" alt="Generational Wealth">
-      <div class="gi-info">
-        <div class="gi-num">09</div>
-        <div class="gi-title">Generational Wealth</div>
-        <div class="gi-role">Creative Direction · Campaign Building</div>
-      </div>
-    </a>
-  </div>
-
-  <div class="gi span-2 r-sq black-ivy">
-    <a href="https://mayaterzi.com/projects/ivy">
-      <img src="Ivy.png" alt="Black Ivy Fashion Show">
-      <div class="gi-info">
-        <div class="gi-num">10</div>
-        <div class="gi-title">Black Ivy Fashion Show</div>
-        <div class="gi-role">Runway Design · Operation Production</div>
-      </div>
-    </a>
-  </div>
-
-  <!-- row 5: 3 across -->
-  <div class="gi r-tall">
-    <a href="https://mayaterzi.com/projects/dreams">
-      <img src="Dreams.png" alt="Dreams Money Can Buy">
-      <div class="gi-info">
-        <div class="gi-num">11</div>
-        <div class="gi-title">Dreams Money Can Buy</div>
-        <div class="gi-role">Creative Direction · Campaign Building</div>
-      </div>
-    </a>
-  </div>
-
-  <div class="gi r-sq">
-    <a href="https://mayaterzi.com/projects/wealthy">
-      <img src="Wealth.png" alt="Wealthy Minds">
-      <div class="gi-info">
-        <div class="gi-num">12</div>
-        <div class="gi-title">Wealthy Minds</div>
-        <div class="gi-role">Creative Direction · Campaign Building</div>
-      </div>
-    </a>
-  </div>
-
- <div class="gi r-sq">
-    <a href="https://mayaterzi.com/projects/ps3">
-      <img src="PS3.png" alt="Preston Settles Basketball Tournament">
-      <div class="gi-info">
-        <div class="gi-num">13</div>
-        <div class="gi-title">Preston Settles Basketball Tournament</div>
-        <div class="gi-role">Operations · Merchandising · Fundraising</div>
-      </div>
-    </a>
-  </div>
-
-</div>
 </body>
 </html>
