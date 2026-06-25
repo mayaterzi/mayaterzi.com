@@ -4,26 +4,32 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maya Terzi</title>
+
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-  --white:  #ffffff;
-  --ink:    #0e0e0e;
-  --accent: #e67d43;
-  --pad:    48px;
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-html, body { height: 100%; }
+:root {
+  --white: #ffffff;
+  --ink: #0e0e0e;
+  --accent: #e67d43;
+  --pad: 48px;
+}
+
+html, body {
+  height: 100%;
+}
 
 body {
   background: var(--white);
   color: var(--ink);
   font-family: 'Inter', sans-serif;
   font-weight: 300;
-  overflow: auto;
 }
 
 /* ─── NAV ─── */
@@ -70,7 +76,7 @@ nav {
   color: var(--accent);
 }
 
-/* ─── ABOUT PAGE ─── */
+/* ─── CENTERED LAYOUT ─── */
 .about-wrap {
   min-height: calc(100vh - 120px);
   display: flex;
@@ -79,27 +85,27 @@ nav {
   padding: 80px var(--pad);
 }
 
-.about-grid {
-  max-width: 900px;
+.about-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 100px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* ─── LEFT ─── */
+.left {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 40px;
+  align-items: flex-start;
 }
 
 .about-img {
   width: 260px;
   height: 340px;
   object-fit: cover;
-  display: block;
-}
-
-.about-text {
-  max-width: 640px;
-  font-size: 14px;
-  line-height: 1.8;
-  color: rgba(0,0,0,.75);
+  margin-bottom: 40px;
 }
 
 .about-title {
@@ -107,15 +113,78 @@ nav {
   font-size: 42px;
   font-weight: 400;
   letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+
+.about-text {
+  font-size: 14px;
+  line-height: 1.8;
+  color: rgba(0,0,0,.75);
+  max-width: 520px;
+}
+
+/* ─── MIDDLE (SKILLS) ─── */
+.skills {
+  color: var(--accent);
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  line-height: 2.2;
+  max-width: 220px;
+}
+
+.skills-title {
+  font-family: 'EB Garamond', serif;
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 24px;
+  color: var(--accent);
+}
+
+/* ─── RIGHT (TOOLS) ─── */
+.tools {
+  color: var(--accent);
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  line-height: 2.2;
+  max-width: 220px;
+}
+
+.tools-title {
+  font-family: 'EB Garamond', serif;
+  font-size: 28px;
+  font-weight: 400;
+  margin-bottom: 24px;
+  color: var(--accent);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1000px) {
+  .about-container {
+    flex-direction: column;
+    gap: 60px;
+    text-align: center;
+    align-items: center;
+  }
+
+  .left {
+    align-items: center;
+  }
+
+  .about-text {
+    text-align: center;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- ─── NAV (UNCHANGED) ─── -->
+<!-- ─── NAV ─── -->
 <nav>
   <a href="index" class="n-logo">Maya Terzi</a>
+
   <div class="n-links">
     <a href="projects" class="n-link">Projects</a>
     <a href="maya" class="n-link">About</a>
@@ -125,30 +194,75 @@ nav {
 
 <!-- ─── ABOUT ─── -->
 <section class="about-wrap">
-  <div class="about-grid">
 
-    <img class="about-img" src="portrait.png" alt="Maya Terzi">
+  <div class="about-container">
 
-    <div class="about-title">Maya Terzi</div>
+    <!-- LEFT -->
+    <div class="left">
 
-    <div class="about-text">
-      I’m a creative director and founder working across fashion, branding, and editorial storytelling. 
-      My practice sits between design and narrative, building visual worlds that feel both personal and cultural.
+      <img class="about-img" src="portrait.png" alt="Maya Terzi">
 
-      <br><br>
+      <div class="about-title">Maya Terzi</div>
 
-      I founded Terzi Evi, a brand rooted in heritage craftsmanship and contemporary Mediterranean influence, 
-      alongside Cha$e a bag co., a streetwear-driven nonprofit focused on community and visual identity. 
-      Additionally, I serve as the Co-founder and Creative Lead for The Walk Thru, an editorial platform exploring the intersection of fashion, sport, and culture.
+      <div class="about-text">
+        I’m a creative director and founder working across fashion, branding, and editorial storytelling. 
+        My practice sits between design and narrative, building visual worlds that feel both personal and cultural.
 
-      <br><br>
+        <br><br>
 
-      Currently studying Creative Industries and Marketing at Bentley University, I’m interested in how 
-      brands build meaning through imagery, texture, and digital culture and how those worlds translate 
-      into physical experience.
+        I founded Terzi Evi, a brand rooted in heritage craftsmanship and contemporary Mediterranean influence, 
+        alongside Cha$e a bag co., a streetwear-driven nonprofit focused on community and visual identity. 
+        Additionally, I serve as the Co-founder and Creative Lead for The Walk Thru, an editorial platform exploring the intersection of fashion, sport, and culture.
+
+        <br><br>
+
+        Currently studying Creative Industries and Marketing at Bentley University, I’m interested in how 
+        brands build meaning through imagery, texture, and digital culture and how those worlds translate 
+        into physical experience.
+      </div>
+
+    </div>
+
+    <!-- MIDDLE -->
+    <div class="skills">
+
+      <div class="skills-title">Skills</div>
+
+      Garment Construction<br>
+      Tailoring<br>
+      Creative Direction<br>
+      Brand Strategy<br>
+      Editorial Storytelling<br>
+      Fashion Marketing<br>
+      Content Creation<br>
+      Social Media Strategy<br>
+      Graphic Design<br>
+      Web Design<br>
+      Campaign Development<br>
+      Photography Direction<br>
+      Digital Branding
+
+    </div>
+
+    <!-- RIGHT -->
+    <div class="tools">
+
+      <div class="tools-title">Tools</div>
+
+      Adobe Creative Cloud<br>
+      Figma<br>
+      Procreate<br>
+      Canva<br>
+      Squarespace<br>
+      Meta Business Suite<br>
+      TikTok Analytics<br>
+      Google Analytics<br>
+      HTML / CSS
+
     </div>
 
   </div>
+
 </section>
 
 </body>
