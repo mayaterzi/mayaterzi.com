@@ -143,41 +143,48 @@ color:var(--accent);
 }
 
 /* ─── MOBILE ─── */
-@media (max-width: 640px) {
-
-  :root {
-    --pad: 20px;
-  }
-
-  .proj-grid {
-    grid-template-columns: 1fr;
-    gap: 0;
-  }
-
-  /* Every project becomes full width */
-  .gi,
-  .gi.span-2,
-  .gi.span-3 {
-    grid-column: span 1;
-  }
-
-  /* Every project gets the same aspect ratio */
-  .gi::before,
-  .gi.span-2::before,
-  .gi.span-3::before {
-    padding-top: 125% !important;   /* 4:5 ratio */
-  }
-
-  /* Except Black Ivy */
-  .black-ivy {
-    grid-column: span 1;
-  }
-
-  .black-ivy::before {
-    padding-top: 60% !important;
-  }
-
+@media (max-width: 768px) {
+  :root { --pad: 20px; }
+  .cat-stack { gap: 32px; flex-direction: column; align-items: flex-start; padding: 0 var(--pad); }
+  .cat-title { font-size: clamp(2.4rem, 11vw, 7rem); }
+  .n-links .n-link:not(:last-child) { display: none; }
 }
+</style>
+</head>
+<body>
+
+<section id="hero">
+  <div class="hero-bg">
+    <img src="hero.png"
+         alt="" onerror="this.style.display='none'">
+  </div>
+  <div class="hero-veil"></div>
+
+  <nav>
+    <a href="http://mayaterzi.com" class="n-logo">Maya Terzi</a>
+    <div class="n-links">
+      <a href="http://mayaterzi.com/projects" class="n-link">Projects</a>
+      <a href="http://mayaterzi.com/smaya" class="n-link">About</a>
+      <a href="http://mayaterzi.com/connect" class="n-link">Connect</a>
+    </div>
+  </nav>
+
+  <div class="hero-content">
+    <div class="cat-stack">
+      <a class="cat-item" href="projects">
+        <span class="cat-num">01</span>
+        <span class="cat-title">Creative Direction</span>
+      </a>
+      <a class="cat-item" href="maya">
+        <span class="cat-num">02</span>
+        <span class="cat-title">Maya Terzi</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
 
   <!-- row 1: 3 across -->
   <div class="gi r-sq">
