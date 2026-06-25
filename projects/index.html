@@ -49,73 +49,37 @@ nav {
 .n-link.active { opacity: 1; color: var(--accent); }
 
 /* ─── GRID ─── */
-/*
-  Layout: 2-column of varied-size cells.
-  Each cell uses padding-top trick for aspect ratio (no CSS aspect-ratio
-  so it works reliably across all browsers and grid contexts).
-
-  Column widths:
-    col-7  = 7/12 of viewport width (minus gaps)
-    col-5  = 5/12
-    col-6  = 6/12
-    col-4  = 4/12
-
-  Row heights are set so each cell is between 1:1 (square) and 4:5.
-  We use padding-top % relative to the cell's own width to lock ratio.
-
-  padding-top: 100%   = 1:1 square
-  padding-top: 125%   = 4:5 portrait (tallest allowed)
-
-  Since padding-top in a grid cell is relative to the COLUMN width,
-  we set it explicitly per cell.
-*/
-
 .proj-grid {
   display: grid;
-  grid-template-columns: 7fr 5fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 0;
   background: var(--ink);
   width: 100%;
 }
 
-/* Every cell uses a padding-top inner to enforce ratio */
 .gi {
   position: relative;
   overflow: hidden;
   background: #1a1a1a;
 }
 
-.gi-inner {
-  position: absolute;
-  inset: 0;
-}
+/* ratio shims */
+.gi::before { content: ''; display: block; }
+.gi.r-sq::before   { padding-top: 100%; }   /* 1:1  */
+.gi.r-tall::before { padding-top: 125%; }   /* 4:5  */
 
-/* Ratio shims — padding-top creates the box height */
-.gi::before {
-  content: '';
-  display: block;
-}
+/* 2-col span — sits across 2 of the 3 columns */
+.gi.span-2 { grid-column: span 2; }
+.gi.span-2.r-sq::before   { padding-top: 50%; }   /* 2:1  */
+.gi.span-2.r-tall::before { padding-top: 62.5%; } /* 8:5  */
 
-/* Col-7 cells (left column ~58.3vw wide):
-   square  = 100%
-   4:5     = 125%                                  */
-.gi.r-sq::before  { padding-top: 100%; }
-.gi.r-tall::before { padding-top: 125%; }
-
-/* Col-5 cells (right column ~41.6vw wide) same ratios */
-/* We use the same classes; ratio is relative to own width */
-
-/* Spanning both columns */
-.gi.span-2 {
-  grid-column: span 2;
-}
-/* For span-2, cell is full width so 100% = square, 83.33% ≈ 6:5 (wider) */
-.gi.span-2.r-sq::before   { padding-top: 50%; }   /* wide landscape — keep it short */
-.gi.span-2.r-tall::before { padding-top: 75%; }   /* closer to square across full width */
+/* 3-col span — full width */
+.gi.span-3 { grid-column: span 3; }
+.gi.span-3.r-sq::before   { padding-top: 33.33%; }
+.gi.span-3.r-tall::before { padding-top: 41.67%; }
 
 .gi a {
-  position: absolute;
-  inset: 0;
+  position: absolute; inset: 0;
   display: block;
   text-decoration: none;
   color: inherit;
@@ -132,14 +96,11 @@ nav {
   filter: brightness(.4);
 }
 
-/* Hover info overlay */
 .gi-info {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
   justify-content: flex-end;
-  padding: 24px 22px;
+  padding: 20px 18px;
   opacity: 0;
   transition: opacity .3s cubic-bezier(.23,1,.32,1);
   pointer-events: none;
@@ -149,13 +110,13 @@ nav {
 
 .gi-num {
   font-size: 10px; letter-spacing: .2em;
-  color: var(--accent); margin-bottom: 7px;
+  color: var(--accent); margin-bottom: 6px;
 }
 .gi-title {
   font-family: 'EB Garamond', serif;
-  font-size: clamp(1.1rem, 2vw, 2rem);
+  font-size: clamp(1rem, 1.8vw, 1.8rem);
   font-weight: 400; line-height: 1.05;
-  color: var(--white); margin-bottom: 7px;
+  color: var(--white); margin-bottom: 6px;
 }
 .gi-role {
   font-size: 10px; letter-spacing: .15em;
@@ -167,9 +128,10 @@ nav {
 @media (max-width: 640px) {
   :root { --pad: 20px; }
   .proj-grid { grid-template-columns: 1fr 1fr; }
-  .gi.span-2 { grid-column: span 2; }
-  .gi::before { padding-top: 100% !important; }
-  .gi.span-2::before { padding-top: 60% !important; }
+  .gi.span-2, .gi.span-3 { grid-column: span 2; }
+  .gi::before         { padding-top: 100% !important; }
+  .gi.span-2::before,
+  .gi.span-3::before  { padding-top: 60% !important; }
 }
 </style>
 </head>
@@ -186,8 +148,8 @@ nav {
 
 <div class="proj-grid">
 
-  <!-- 01 — left col, tall portrait -->
-  <div class="gi r-tall">
+  <!-- row 1: 3 across -->
+  <div class="gi r-sq">
     <a href="between-sand-and-sea.html">
       <img src="Between.png" alt="Between Sand and Sea">
       <div class="gi-info">
@@ -198,8 +160,7 @@ nav {
     </a>
   </div>
 
-  <!-- 02 — right col, square -->
-  <div class="gi r-sq">
+  <div class="gi r-tall">
     <a href="ashes-to-bloom.html">
       <img src="Bloom.png" alt="Ashes to Bloom">
       <div class="gi-info">
@@ -210,7 +171,6 @@ nav {
     </a>
   </div>
 
-  <!-- 03 — left col, square -->
   <div class="gi r-sq">
     <a href="morning-on-the-caspian.html">
       <img src="Caspian.png" alt="Morning on the Caspian">
@@ -222,8 +182,8 @@ nav {
     </a>
   </div>
 
-  <!-- 04 — right col, tall portrait -->
-  <div class="gi r-tall">
+  <!-- row 2: 2 across (span-2 + 1) -->
+  <div class="gi span-2 r-tall">
     <a href="love-unity.html">
       <img src="Love.png" alt="Love; Unity">
       <div class="gi-info">
@@ -234,7 +194,6 @@ nav {
     </a>
   </div>
 
-  <!-- 05 — left col, tall portrait -->
   <div class="gi r-tall">
     <a href="under-the-apricot-tree.html">
       <img src="Under.png" alt="Under the Apricot Tree">
@@ -246,7 +205,7 @@ nav {
     </a>
   </div>
 
-  <!-- 06 — right col, square -->
+  <!-- row 3: 3 across -->
   <div class="gi r-sq">
     <a href="the-walk-thru.html">
       <img src="Walk.png" alt="The Walk Thru">
@@ -258,8 +217,7 @@ nav {
     </a>
   </div>
 
-  <!-- 07 — full width -->
-  <div class="gi span-2 r-tall">
+  <div class="gi r-tall">
     <a href="photo-video.html">
       <img src="Photo.png" alt="Photo & Video">
       <div class="gi-info">
@@ -270,8 +228,7 @@ nav {
     </a>
   </div>
 
-  <!-- 08 — left col, tall -->
-  <div class="gi r-tall">
+  <div class="gi r-sq">
     <a href="generational-wealth.html">
       <img src="Generational.png" alt="Generational Wealth">
       <div class="gi-info">
@@ -282,7 +239,7 @@ nav {
     </a>
   </div>
 
-  <!-- 09 — right col, square -->
+  <!-- row 4: 1 + span-2 -->
   <div class="gi r-sq">
     <a href="black-ivy.html">
       <img src="Ivy.png" alt="Black Ivy Fashion Show">
@@ -294,8 +251,7 @@ nav {
     </a>
   </div>
 
-  <!-- 10 — left col, square -->
-  <div class="gi r-sq">
+  <div class="gi span-2 r-sq">
     <a href="dreams-money-can-buy.html">
       <img src="Dreams.png" alt="Dreams Money Can Buy">
       <div class="gi-info">
@@ -306,7 +262,7 @@ nav {
     </a>
   </div>
 
-  <!-- 11 — right col, tall -->
+  <!-- row 5: 3 across -->
   <div class="gi r-tall">
     <a href="packaging-design.html">
       <img src="Packaging.png" alt="Packaging Design">
@@ -318,8 +274,7 @@ nav {
     </a>
   </div>
 
-  <!-- 12 — full width -->
-  <div class="gi span-2 r-sq">
+  <div class="gi r-sq">
     <a href="chase-a-bag.html">
       <img src="Cha$e.png" alt="Cha$e a Bag Co.">
       <div class="gi-info">
