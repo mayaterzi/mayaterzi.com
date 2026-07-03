@@ -4,27 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maya Terzi</title>
-
 <link rel="icon" type="image/png" href="favicon.png">
-
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-
 <style>
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --white: #ffffff;
-  --ink: #0e0e0e;
+  --white:  #ffffff;
+  --ink:    #0e0e0e;
   --accent: #e67d43;
-  --pad: 48px;
-}
-
-html, body {
-  height: 100%;
+  --pad:    48px;
 }
 
 body {
@@ -36,161 +25,228 @@ body {
 
 /* ─── NAV ─── */
 nav {
-  position: relative;
-  z-index: 10;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 24px var(--pad);
 }
-
 .n-logo {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--ink);
-  text-decoration: none;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none;
   transition: color .15s;
 }
-
-.n-links {
-  display: flex;
-  gap: 40px;
-}
-
+.n-logo:hover { color: var(--accent); }
+.n-links { display: flex; gap: 40px; }
 .n-link {
-  font-size: 11px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--ink);
-  text-decoration: none;
-  opacity: .45;
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--ink); text-decoration: none; opacity: .45;
   transition: opacity .15s, color .15s;
 }
+.n-link:hover { opacity: 1; color: var(--accent); }
 
-.n-link:hover {
-  opacity: 1;
-  color: var(--accent);
+/* ─── PAGE LAYOUT ─── */
+.about-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px var(--pad) 120px;
 }
 
-.n-logo:hover {
-  color: var(--accent);
-}
-
-/* ─── CENTER STACK LAYOUT ─── */
-.about-wrap {
-  min-height: calc(100vh - 120px);
+/* ─── TOP: image + name ─── */
+.about-top {
   display: flex;
-  justify-content: center;
-  padding: 80px var(--pad);
-}
-
-.about-container {
-  max-width: 700px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-end;
   gap: 40px;
+  margin-bottom: 64px;
 }
-
-/* ─── IMAGE ─── */
 .about-img {
-  width: 280px;
-  height: 360px;
+  width: 220px;
+  height: 280px;
   object-fit: cover;
+  flex-shrink: 0;
 }
-
-/* ─── TEXT ─── */
 .about-title {
   font-family: 'EB Garamond', serif;
-  font-size: 42px;
+  font-size: clamp(3rem, 6vw, 5.5rem);
   font-weight: 400;
-  letter-spacing: -0.02em;
-}
-
-.about-text {
-  font-size: 14px;
-  line-height: 1.8;
-  color: rgba(0,0,0,.75);
-}
-
-/* ─── SKILLS + TOOLS INLINE (CENTERED BLOCK) ─── */
-.meta-block {
-  margin-top: 20px;
-  font-size: 12px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  line-height: 2;
+  letter-spacing: -.02em;
+  line-height: 1;
   color: var(--accent);
 }
 
+/* ─── BOTTOM: bio left, skills/tools right ─── */
+.about-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+/* Bio */
+.about-bio {
+  font-size: 14px;
+  line-height: 1.85;
+  color: rgba(0,0,0,.72);
+}
+.about-bio a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0,0,0,.25);
+  transition: color .15s, border-color .15s;
+}
+.about-bio a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Skills + Tools */
+.meta-col {
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+}
+.meta-block {}
 .meta-title {
   font-family: 'EB Garamond', serif;
-  font-size: 28px;
-  margin-bottom: 12px;
+  font-size: 22px;
+  font-weight: 400;
   color: var(--accent);
+  margin-bottom: 14px;
+}
+.meta-list {
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  line-height: 2.2;
+  color: rgba(0,0,0,.6);
+}
+
+/* ─── CERTIFICATIONS ─── */
+.certs {
+  margin-top: 80px;
+  padding-top: 48px;
+  border-top: 1px solid rgba(0,0,0,.1);
+}
+.certs-title {
+  font-family: 'EB Garamond', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--accent);
+  margin-bottom: 28px;
+}
+.certs-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  max-width: 400px;
+}
+.cert-item {
+  padding: 20px 0;
+  border-top: 1px solid rgba(0,0,0,.1);
+}
+.cert-name {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.cert-issuer {
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.4);
+  margin-bottom: 4px;
+}
+.cert-year {
+  font-size: 10px;
+  letter-spacing: .1em;
+  color: var(--accent);
+}
+
+/* ─── MOBILE ─── */
+@media (max-width: 700px) {
+  :root { --pad: 20px; }
+  .about-top { flex-direction: column; align-items: flex-start; gap: 24px; }
+  .about-img { width: 160px; height: 200px; }
+  .about-body { grid-template-columns: 1fr; gap: 44px; }
+  .certs-grid { grid-template-columns: 1fr 1fr; }
 }
 </style>
 </head>
-
 <body>
 
-<!-- ─── NAV ─── -->
 <nav>
-<a href="https://mayaterzi.com" class="n-logo">Maya Terzi</a>
-
-<div class="n-links">
-
-<a href="https://mayaterzi.com/projects" class="n-link">Projects</a>
-<a href="https://mayaterzi.com/maya" class="n-link">About</a>
-<a href="https://mayaterzi.com/connect" class="n-link">Connect</a>
+  <a href="https://mayaterzi.com" class="n-logo">Maya Terzi</a>
+  <div class="n-links">
+    <a href="https://mayaterzi.com/projects" class="n-link">Projects</a>
+    <a href="https://mayaterzi.com/maya" class="n-link">About</a>
+    <a href="https://mayaterzi.com/connect" class="n-link">Connect</a>
   </div>
 </nav>
 
-<!-- ─── ABOUT ─── -->
-<section class="about-wrap">
+<div class="about-page">
 
-  <div class="about-container">
-
+  <!-- image + name -->
+  <div class="about-top">
     <img class="about-img" src="portrait.png" alt="Maya Terzi">
-
     <div class="about-title">Maya Terzi</div>
+  </div>
 
-    <div class="about-text">
-      I’m a creative director and founder working across fashion, branding, and editorial storytelling. 
+  <!-- bio | skills + tools -->
+  <div class="about-body">
+
+    <div class="about-bio">
+      I'm a creative director and founder working across fashion, branding, and editorial storytelling.
       My practice sits between design and narrative, building visual worlds that feel both personal and cultural.
-
       <br><br>
-
-      I founded Terzi Evi, a brand rooted in heritage craftsmanship and contemporary Mediterranean influence, 
-      alongside Cha$e a bag co., a streetwear-driven nonprofit focused on community and visual identity. 
-      Additionally, I serve as the Co-founder and Creative Lead for The Walk Thru, an editorial platform exploring the intersection of fashion, sport, and culture.
-
+      I founded <a href="https://www.terzievi.com/" target="_blank">Terzi Evi</a>, a brand rooted in heritage craftsmanship and contemporary Mediterranean influence,
+      alongside <a href="https://www.chaseabagco.com/" target="_blank">Cha$e a bag co.</a>, a streetwear-driven nonprofit focused on community and visual identity.
+      Additionally, I serve as Co-founder and Creative Lead for <a href="https://thewalkthru.blog/" target="_blank">The Walk Thru</a>, an editorial platform exploring the intersection of fashion, sport, and culture.
       <br><br>
-
-      On track to obtain my B.S. in Creative Industries and Marketing at Bentley University this December 2026, I’m interested in how 
-      design build meaning through imagery, construction, and digital culture and how those worlds translate 
+      Alongside my entrepreneurial work, I have over a year of experience at Manejah PR, where I develop social media strategy, creative campaigns, and branded content for clients across interior design, lifestyle, hospitality, and real estate. 
+      From content planning and copywriting to campaign execution and analytics, I help shape digital brand identities through thoughtful storytelling and strategic creative direction.
+      <br><br>
+      On track to obtain my B.S. in Creative Industries and Marketing at Bentley University this December 2026, I'm interested in how
+      design builds meaning through imagery, construction, and digital culture — and how those worlds translate
       into physical experience.
     </div>
 
-    <!-- SKILLS -->
-    <div class="meta-block">
-      <div class="meta-title">Skills</div>
-      Garment Development · Creative Direction · Brand Strategy · Editorial Storytelling · Fashion Marketing · Content Creation · Social Media Strategy · Graphic Design · Web Design · Creative Writing · Campaign Development · Photography Direction · Digital Branding
-    </div>
+    <div class="meta-col">
 
-    <!-- TOOLS -->
-    <div class="meta-block">
-      <div class="meta-title">Tools</div>
-      Adobe Creative Cloud · Figma · Procreate · Canva · Squarespace · Meta Business Suite · TikTok Analytics · Google Analytics · HTML / CSS
+      <div class="meta-block">
+        <div class="meta-title">Skills</div>
+        <div class="meta-list">
+          Garment Development · Creative Direction · Brand Strategy · Editorial Storytelling · Fashion Marketing · Content Creation · Social Media Strategy · Graphic Design · Web Design · PR Writing · Campaign Development · Photography Direction · Digital Branding
+        </div>
+      </div>
+
+      <div class="meta-block">
+        <div class="meta-title">Tools</div>
+        <div class="meta-list">
+          Adobe Creative Cloud · Figma · Procreate · Canva · Squarespace · Shopify · Meta Business Suite · TikTok Analytics · Google Analytics · Google Workspace · HTML / CSS
+        </div>
+      </div>
+
     </div>
 
   </div>
 
-</section>
+  <!-- ─── CERTIFICATIONS ─── -->
+  <div class="certs">
+    <div class="certs-title">Certifications</div>
+    <div class="certs-grid">
+
+      <div class="cert-item">
+        <div class="cert-name">Inside LVMH Certificate - Creation & Branding, Retail & Customer Experience</div>
+        <div class="cert-issuer">LVMH</div>
+        <div class="cert-year">2026</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
 
 </body>
 </html>
