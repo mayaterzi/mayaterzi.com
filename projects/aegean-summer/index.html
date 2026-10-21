@@ -188,24 +188,18 @@ color:var(--accent);
     </div>
 
     <div class="book-controls">
-
-        <button id="prev-page" aria-label="Previous page">
-            ←
-        </button>
-
+        <button id="prev-page" aria-label="Previous page">←</button>
         <span id="page-counter">COVER</span>
-
-        <button id="next-page" aria-label="Next page">
-            →
-        </button>
-
+        <button id="next-page" aria-label="Next page">→</button>
     </div>
 
-    <p class="book-hint">
-        CLICK TO TURN THE PAGE
-    </p>
+    <p class="book-hint">CLICK TO TURN THE PAGE</p>
 
 </section>
+
+<!-- Your existing campaign photos remain below -->
+
+<section class="story">
     
 /* ---------- IMAGE STORY ---------- */
 
@@ -279,6 +273,112 @@ text-transform:uppercase;
 color:rgba(0,0,0,.45);
 
 }
+
+
+/* ---------- INTERACTIVE LOOKBOOK ---------- */
+
+.lookbook {
+    max-width: 1500px;
+    margin: 0 auto 180px;
+    padding: 0 var(--pad);
+}
+
+.lookbook-heading {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    font-size: 10px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, .45);
+}
+
+.book-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+#book {
+    width: 100%;
+    margin: 0 auto;
+}
+
+#book .page {
+    background: #f8f7f4;
+    overflow: hidden;
+}
+
+#book .page img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    user-select: none;
+}
+
+.book-hint {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 9px;
+    letter-spacing: .18em;
+    color: rgba(0, 0, 0, .35);
+}
+
+.book-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 36px;
+    margin-top: 30px;
+}
+
+.book-controls button {
+    border: none;
+    background: transparent;
+    color: var(--accent);
+    font-family: 'Inter', sans-serif;
+    font-size: 26px;
+    font-weight: 300;
+    cursor: pointer;
+    padding: 8px 14px;
+    transition: opacity .2s ease, transform .2s ease;
+}
+
+.book-controls button:hover:not(:disabled) {
+    opacity: .65;
+    transform: translateX(2px);
+}
+
+#prev-page:hover:not(:disabled) {
+    transform: translateX(-2px);
+}
+
+.book-controls button:disabled {
+    opacity: .25;
+    cursor: default;
+}
+
+#page-counter {
+    min-width: 100px;
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(0, 0, 0, .5);
+}
+
+@media (max-width: 900px) {
+    .lookbook {
+        margin-bottom: 100px;
+    }
+
+    .book-controls {
+        gap: 24px;
+        margin-top: 20px;
+    }
+}
+
 
 /* ---------- MOBILE ---------- */
 
