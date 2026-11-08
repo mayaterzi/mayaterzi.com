@@ -128,120 +128,140 @@ color:var(--accent);
     color:rgba(0,0,0,.55);
 }
 
-/* ---------- IMAGE STORY ---------- */
+/* ---------- EDITORIAL IMAGE GRID ---------- */
 
-.story{
-
-max-width:1600px;
-margin:auto;
-padding:0 var(--pad) 200px;
-
+.story {
+  max-width: 1600px;
+  margin: auto;
+  padding: 0 var(--pad) 180px;
 }
 
-/* every image block */
-
-.frame{
-
-margin-bottom:220px;
-
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 32px;
+  row-gap: 85px;
+  align-items: start;
 }
 
-.frame img{
-
-width:100%;
-display:block;
-
+.frame {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
 }
 
-/* editorial sizing */
-
-.wide{
-
-width:72%;
-margin-left:0;
-
+.frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform .7s ease, filter .5s ease;
 }
 
-.tall{
-
-width:34%;
-margin-left:auto;
-
+.frame:hover img {
+  transform: scale(1.015);
+  filter: brightness(.95);
 }
 
-.medium{
+/* Opening image spans both columns */
 
-width:48%;
-margin-left:12%;
-
+.frame.wide {
+  grid-column: 1 / -1;
 }
 
-.small{
+/* Matching image proportions */
 
-width:28%;
-margin-left:58%;
-
+.frame.pair img {
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
 }
 
-.large{
+/* Captions */
 
-width:66%;
-margin:auto;
-
+.caption {
+  margin-top: 16px;
+  font-size: 10px;
+  letter-spacing: .16em;
+  line-height: 1.8;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.45);
+  transition: color .3s ease;
 }
 
-.caption{
+.frame:hover .caption {
+  color: var(--accent);
+}
 
-margin-top:18px;
+/* ---------- TABLET ---------- */
 
-font-size:11px;
-letter-spacing:.16em;
-text-transform:uppercase;
-color:rgba(0,0,0,.45);
+@media(max-width:900px) {
+
+  :root {
+    --pad: 24px;
+  }
+
+  .project-intro {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    margin: 80px auto 120px;
+  }
+
+  .project-title {
+    font-size: 58px;
+  }
+
+  .gallery-grid {
+    column-gap: 24px;
+    row-gap: 60px;
+  }
 
 }
 
 /* ---------- MOBILE ---------- */
 
-@media(max-width:900px){
+@media(max-width:600px) {
 
-:root{
---pad:24px;
+  :root {
+    --pad: 20px;
+  }
+
+  nav {
+    padding: 22px var(--pad);
+  }
+
+  .n-links {
+    gap: 17px;
+  }
+
+  .n-logo,
+  .n-link {
+    font-size: 9px;
+    letter-spacing: .12em;
+  }
+
+  .project-intro {
+    gap: 35px;
+    margin: 75px auto 85px;
+  }
+
+  .story {
+    padding: 0 var(--pad) 80px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    row-gap: 45px;
+  }
+
+  .frame.wide {
+    grid-column: auto;
+  }
+
+  .frame.pair img {
+    aspect-ratio: auto;
+  }
+
 }
-
-.project-intro{
-
-grid-template-columns:1fr;
-gap:40px;
-margin:80px auto 120px;
-
-}
-
-.project-title{
-
-font-size:58px;
-
-}
-
-.frame{
-
-margin-bottom:80px;
-
-}
-
-.wide,
-.medium,
-.tall,
-.small,
-.large{
-
-width:100%;
-margin-left:0;
-
-}
-
-}
-
 </style>
 </head>
 
@@ -290,86 +310,61 @@ margin-left:0;
 
 </section>
 
-
 <section class="story">
 
-<div class="frame wide">
+  <div class="gallery-grid">
 
-<img src="image1.png">
+    <!-- LOOK 01 — FULL WIDTH -->
 
-<div class="caption">
-Look 01
-</div>
+    <div class="frame wide">
+      <img src="image1.png" alt="Ashes to Bloom — Look 01">
+      <div class="caption">Look 01</div>
+    </div>
 
-</div>
+    <!-- LOOK 02 -->
 
+    <div class="frame pair">
+      <img src="image2.png" alt="Ashes to Bloom — Look 02">
+      <div class="caption">Look 02</div>
+    </div>
 
-<div class="frame tall">
+    <!-- LOOK 03 -->
 
-<img src="image2.png">
+    <div class="frame pair">
+      <img src="image3.png" alt="Ashes to Bloom — Look 03">
+      <div class="caption">Look 03</div>
+    </div>
 
-<div class="caption">
-Look 02
-</div>
+    <!-- LOOK 04 -->
 
-</div>
+    <div class="frame pair">
+      <img src="image4.png" alt="Ashes to Bloom — Look 04">
+      <div class="caption">Look 04</div>
+    </div>
 
+    <!-- LOOK 05 -->
 
-<div class="frame medium">
+    <div class="frame pair">
+      <img src="image5.png" alt="Ashes to Bloom — Look 05">
+      <div class="caption">Look 05</div>
+    </div>
 
-<img src="image3.png">
+    <!-- LOOK 06 -->
 
-<div class="caption">
-Look 03
-</div>
+    <div class="frame pair">
+      <img src="image6.png" alt="Ashes to Bloom — Look 06">
+      <div class="caption">Look 06</div>
+    </div>
 
-</div>
+    <!-- LOOK 07 -->
 
+    <div class="frame pair">
+      <img src="image7.png" alt="Ashes to Bloom — Look 07">
+      <div class="caption">Look 07</div>
+    </div>
 
-<div class="frame small">
+  </div>
 
-<img src="image4.png">
-
-<div class="caption">
-Look 04
-</div>
-
-</div>
-
-
-<div class="frame large">
-
-<img src="image5.png">
-
-<div class="caption">
-Look 05
-</div>
-
-</div>
-
-
-    
-<div class="frame medium">
-
-<img src="image6.png">
-
-<div class="caption">
-Look 06
-</div>
-
-</div>
-
-
-<div class="frame tall">
-
-<img src="image7.png">
-
-<div class="caption">
-Look 07
-</div>
-
-
-</div>
 </section>
 
 </body>
