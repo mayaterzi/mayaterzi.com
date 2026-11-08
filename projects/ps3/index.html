@@ -161,13 +161,23 @@ nav {
 .frame {
   width: 100%;
   min-width: 0;
+  overflow: hidden;
 }
 
 .frame img {
   width: 100%;
+  aspect-ratio: 4 / 5;
   height: auto;
+  object-fit: cover;
   display: block;
   transition: transform .7s ease, filter .5s ease;
+}
+
+/* Consistent image ratio for 2024 and 2026 campaigns */
+.campaign-2024 .frame img,
+.campaign-2026 .frame img {
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
 }
 
 .frame:hover img {
@@ -433,25 +443,15 @@ nav {
 
 <!-- GROUP 01 — NO BAD DAYS '26 -->
 
-<div class="gallery-section">
-
-  <div class="frame">
-    <img src="image12.jpg" alt="No Bad Days 2026">
-    <div class="caption">No Bad Days '26</div>
-  </div>
-
-  <div class="frame">
-    <img src="image13.jpg" alt="No Bad Days 2026">
-    <div class="caption">No Bad Days '26</div>
-  </div>
-
-  <div class="frame">
-    <img src="image14.jpg" alt="No Bad Days 2026">
-    <div class="caption">No Bad Days '26</div>
-  </div>
+<div class="gallery-section campaign-2026">
 
   <div class="frame">
     <img src="image15.jpg" alt="No Bad Days 2026">
+    <div class="caption">No Bad Days '26</div>
+  </div>
+  
+  <div class="frame">
+    <img src="image12.jpg" alt="No Bad Days 2026">
     <div class="caption">No Bad Days '26</div>
   </div>
 
@@ -465,7 +465,7 @@ nav {
 
 <!-- GROUP 02 — NO BAD DAYS '24 -->
 
-<div class="gallery-section">
+<div class="gallery-section campaign-2024">
 
   <div class="frame">
     <img src="image1.jpg" alt="No Bad Days 2024">
@@ -479,16 +479,6 @@ nav {
 
   <div class="frame">
     <img src="image3.jpg" alt="No Bad Days 2024">
-    <div class="caption">No Bad Days '24</div>
-  </div>
-
-  <div class="frame">
-    <img src="image4.jpg" alt="No Bad Days 2024">
-    <div class="caption">No Bad Days '24</div>
-  </div>
-
-  <div class="frame">
-    <img src="image5.jpg" alt="No Bad Days 2024">
     <div class="caption">No Bad Days '24</div>
   </div>
 
