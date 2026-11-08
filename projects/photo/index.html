@@ -241,11 +241,84 @@ nav {
   filter: brightness(.9);
 }
 
-/* ---------- CLOSING IMAGE ---------- */
+/* ---------- CLICKABLE VIDEO THUMBNAILS ---------- */
 
-.final-feature {
-  width: 76%;
-  margin: 0 auto;
+.video-feature a {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.video-feature .video-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.video-feature img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform .7s ease, filter .5s ease;
+}
+
+.video-feature .play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  border: 1px solid rgba(255,255,255,.85);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,.12);
+  backdrop-filter: blur(5px);
+  transition: background .3s ease, transform .3s ease;
+}
+
+.video-feature .play-button svg {
+  width: 17px;
+  height: 17px;
+  fill: white;
+  margin-left: 3px;
+}
+
+.video-feature .watch-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 13px;
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.45);
+  transition: color .3s ease;
+}
+
+.video-feature a:hover img {
+  transform: scale(1.025);
+  filter: brightness(.72);
+}
+
+.video-feature a:hover .play-button {
+  background: rgba(230,125,67,.9);
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.video-feature a:hover .watch-label {
+  color: var(--accent);
+}
+
+/* Mobile play button */
+
+@media(max-width:600px) {
+  .video-feature .play-button {
+    width: 48px;
+    height: 48px;
+  }
 }
 
 /* ---------- TABLET ---------- */
@@ -402,6 +475,7 @@ nav {
 <section class="story">
 
 
+
 <!-- GROUP 01 — ADRIATIC -->
 
 <div class="gallery-section">
@@ -414,19 +488,41 @@ nav {
 
   <!-- IMAGE 02 -->
   <div class="frame">
-    <img src="image25.jpg" alt="Montenegro">
+    <img src="image25.jpg" alt="Budva, Montenegro">
     <div class="caption">Budva, Montenegro</div>
   </div>
 
-<!-- VIDEO 01 -->
+</div>
+
+
+<!-- VIDEO 01 — DJI OSMO -->
 
 <div class="video-feature">
   <a href="https://www.instagram.com/p/Dehvt9zvR3W/" target="_blank" rel="noopener noreferrer">
-    <img src="preview7.jpg" alt="Shot on DJI Osmo">
-    <div class="caption">Shot on DJI Osmo</div>
+
+    <div class="video-image">
+      <img src="preview7.jpg" alt="Shot on DJI Osmo">
+
+      <div class="play-button">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="watch-label">
+      <span>Shot on DJI Osmo</span>
+      <span>Watch Video ↗</span>
+    </div>
+
   </a>
 </div>
-  
+
+
+<!-- GROUP 02 — AEGEAN -->
+
+<div class="gallery-section">
+
   <!-- IMAGE 03 -->
   <div class="frame">
     <img src="image19.jpg" alt="Bodrum, Turkey">
@@ -440,36 +536,6 @@ nav {
   </div>
 
 </div>
-
-
-<!-- VIDEO 02 -->
-
-<div class="video-feature">
-  <a href="https://www.instagram.com/reel/Ddg55C6Bs5B/" target="_blank" rel="noopener noreferrer">
-    <img src="preview6.jpg" alt="Aegean Summer video">
-    <div class="caption">Aegean Summer</div>
-  </a>
-</div>
-
-
-<!-- GROUP 02 — AEGEAN -->
-
-<div class="gallery-section">
-
-  <!-- IMAGE 05 -->
-  <div class="frame">
-    <img src="image21.jpg" alt="Bodrum, Turkey">
-    <div class="caption">Bodrum, Turkey</div>
-  </div>
-
-  <!-- IMAGE 06 -->
-  <div class="frame">
-    <img src="image22.jpg" alt="Kalymnos, Greece">
-    <div class="caption">Kalymnos, Greece</div>
-  </div>
-
-</div>
-
 
 <!-- GROUP 03 — ISTANBUL -->
 
