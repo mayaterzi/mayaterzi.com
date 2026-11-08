@@ -217,39 +217,45 @@ nav {
 }
 
 .film-frame {
-    width: 100%;
+    position: relative;
     overflow: hidden;
-    background: #f2f2f2;
 }
 
-.film-frame img {
-    display: block;
-    width: 100%;
-    height: auto;
-    transition: transform .7s ease;
-}
-
-.film-link:hover .film-frame img {
-    transform: scale(1.015);
-}
-
-.film-caption {
+.film-frame .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 64px;
+    height: 64px;
+    border: 1px solid rgba(255,255,255,.85);
+    border-radius: 50%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-top: 16px;
-    font-size: 10px;
-    letter-spacing: .16em;
-    text-transform: uppercase;
-    color: rgba(0,0,0,.5);
+    justify-content: center;
+    background: rgba(255,255,255,.12);
+    backdrop-filter: blur(5px);
+    transition: background .3s ease, transform .3s ease;
+    z-index: 2;
 }
 
-.film-caption span:last-child {
-    transition: color .3s ease;
+.film-frame .play-button svg {
+    width: 17px;
+    height: 17px;
+    fill: white;
+    margin-left: 3px;
 }
 
-.film-link:hover .film-caption span:last-child {
-    color: var(--accent);
+.film-link:hover .play-button {
+    background: rgba(230,125,67,.9);
+    transform: translate(-50%, -50%) scale(1.08);
+}
+
+@media(max-width:600px) {
+    .film-frame .play-button {
+        width: 48px;
+        height: 48px;
+    }
 }
 
 /* ---------- TABLET ---------- */
@@ -439,25 +445,15 @@ nav {
 
     <!-- CAMPAIGN FILM -->
 
-    <div class="film-section">
+<div class="film-frame">
+    <img src="preview6.png" alt="Love; Unity Campaign Film">
 
-        <a class="film-link"
-           href="https://www.instagram.com/reel/DOhAET1CZLx/"
-           target="_blank"
-           rel="noopener noreferrer">
-
-            <div class="film-frame">
-                <img src="preview6.png" alt="Love; Unity campaign film preview">
-            </div>
-
-            <div class="film-caption">
-                <span>Campaign Film</span>
-                <span>Watch on Instagram ↗</span>
-            </div>
-
-        </a>
-
+    <div class="play-button">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M8 5v14l11-7z"/>
+        </svg>
     </div>
+</div>
 
 
     <!-- CLOSING IMAGE PAIR -->
