@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,233 +13,344 @@
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-:root{
---white:#fff;
---ink:#0e0e0e;
---accent:#e67d43;
---pad:48px;
+:root {
+    --white: #fff;
+    --ink: #0e0e0e;
+    --accent: #e67d43;
+    --pad: 48px;
 }
 
-body{
-background:#fff;
-color:var(--ink);
-font-family:'Inter',sans-serif;
-font-weight:300;
+body {
+    background: var(--white);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
 }
 
 /* ---------- NAV ---------- */
 
-nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:24px var(--pad);
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px var(--pad);
 }
 
-.n-logo{
-font-size:11px;
-letter-spacing:.18em;
-text-transform:uppercase;
-font-weight:500;
-color:var(--ink);
-text-decoration:none;
-transition:.2s;
+.n-logo {
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    transition: .2s;
 }
 
-.n-logo:hover{
-color:var(--accent);
+.n-logo:hover {
+    color: var(--accent);
 }
 
-.n-links{
-display:flex;
-gap:40px;
+.n-links {
+    display: flex;
+    gap: 40px;
 }
 
-.n-link{
-font-size:11px;
-letter-spacing:.18em;
-text-transform:uppercase;
-text-decoration:none;
-color:var(--ink);
-opacity:.45;
-transition:.2s;
+.n-link {
+    font-size: 11px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--ink);
+    opacity: .45;
+    transition: .2s;
 }
 
-.n-link:hover{
-opacity:1;
-color:var(--accent);
+.n-link:hover {
+    opacity: 1;
+    color: var(--accent);
 }
 
-/* ---------- INTRO ---------- */
+/* ---------- PROJECT INTRO ---------- */
 
-.project-intro{
-    max-width:1200px;
-    margin:120px auto 220px;
-    padding:0 var(--pad);
-    display:grid;
-    grid-template-columns:1fr 320px;
-    gap:120px;
-    align-items:end;
+.project-intro {
+    max-width: 1400px;
+    margin: 120px auto 150px;
+    padding: 0 var(--pad);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 100px;
+    align-items: end;
 }
 
-.project-heading{
-    display:flex;
-    flex-direction:column;
-    gap:18px;
+.project-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
 }
 
-.project-number{
-    font-size:10px;
-    letter-spacing:.22em;
-    text-transform:uppercase;
-    color:rgba(0,0,0,.35);
-    transition:.3s;
+.project-number {
+    font-size: 10px;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,.35);
+    transition: .3s;
 }
 
-.project-title{
-    font-family:'EB Garamond',serif;
-    font-size:clamp(4rem,9vw,8rem);
-    font-weight:400;
-    line-height:.95;
-    letter-spacing:-.03em;
+.project-title {
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(4rem, 9vw, 8rem);
+    font-weight: 400;
+    line-height: .9;
+    letter-spacing: -.03em;
 }
 
-.project-title a{
-    color:var(--ink);
-    text-decoration:none;
-    transition:color .35s ease;
+.project-title a {
+    color: var(--ink);
+    text-decoration: none;
+    transition: color .35s ease;
 }
 
 .project-heading:hover .project-title a,
-.project-heading:hover .project-number{
-    color:var(--accent);
+.project-heading:hover .project-number {
+    color: var(--accent);
 }
 
-.project-meta{
-    font-size:11px;
-    text-transform:uppercase;
-    letter-spacing:.18em;
-    line-height:2;
-    color:rgba(0,0,0,.55);
+.project-meta {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    line-height: 2;
+    color: rgba(0,0,0,.55);
+}
+
+.project-meta a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0,0,0,.3);
+    transition: color .3s ease, border-color .3s ease;
+}
+
+.project-meta a:hover {
+    color: var(--accent);
+    border-color: var(--accent);
 }
 
 /* ---------- IMAGE STORY ---------- */
 
-.story{
-
-max-width:1600px;
-margin:auto;
-padding:0 var(--pad) 200px;
-
+.story {
+    max-width: 1600px;
+    margin: auto;
+    padding: 0 var(--pad) 180px;
 }
 
-/* every image block */
-
-.frame{
-
-margin-bottom:220px;
-
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 28px;
+    row-gap: 100px;
+    align-items: start;
 }
 
-.frame img{
-
-width:100%;
-display:block;
-
+.frame {
+    width: 100%;
+    overflow: hidden;
 }
 
-/* editorial sizing */
-
-.wide{
-
-width:72%;
-margin-left:0;
-
+.frame img {
+    width: 100%;
+    display: block;
+    transition: transform .7s ease;
 }
 
-.tall{
-
-width:34%;
-margin-left:auto;
-
+.frame:hover img {
+    transform: scale(1.015);
 }
 
-.medium{
+/* Paired campaign images */
 
-width:48%;
-margin-left:12%;
-
+.frame.pair img {
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
 }
 
-.small{
+/* Larger centered image */
 
-width:28%;
-margin-left:58%;
-
+.frame.center {
+    grid-column: 1 / -1;
+    width: 68%;
+    justify-self: center;
 }
 
-.large{
-
-width:66%;
-margin:auto;
-
+.frame.center img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
 }
 
-.caption{
+/* Captions */
 
-margin-top:18px;
+.caption {
+    margin-top: 16px;
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,.45);
+}
 
-font-size:11px;
-letter-spacing:.16em;
-text-transform:uppercase;
-color:rgba(0,0,0,.45);
+/* ---------- CAMPAIGN FILM ---------- */
 
+.film-section {
+    width: 82%;
+    margin: 140px auto;
+}
+
+.film-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.film-frame {
+    width: 100%;
+    overflow: hidden;
+    background: #f2f2f2;
+}
+
+.film-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: transform .7s ease;
+}
+
+.film-link:hover .film-frame img {
+    transform: scale(1.015);
+}
+
+.film-caption {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(0,0,0,.5);
+}
+
+.film-caption span:last-child {
+    transition: color .3s ease;
+}
+
+.film-link:hover .film-caption span:last-child {
+    color: var(--accent);
+}
+
+/* ---------- TABLET ---------- */
+
+@media (max-width: 900px) {
+
+    :root {
+        --pad: 28px;
+    }
+
+    .project-intro {
+        grid-template-columns: minmax(0, 1fr) 240px;
+        gap: 40px;
+        margin: 90px auto 120px;
+    }
+
+    .project-title {
+        font-size: clamp(4rem, 10vw, 6rem);
+    }
+
+    .gallery-grid {
+        column-gap: 20px;
+        row-gap: 75px;
+    }
+
+    .film-section {
+        width: 90%;
+        margin: 100px auto;
+    }
+
+    .frame.center {
+        width: 78%;
+    }
 }
 
 /* ---------- MOBILE ---------- */
 
-@media(max-width:900px){
+@media (max-width: 600px) {
 
-:root{
---pad:24px;
-}
+    :root {
+        --pad: 20px;
+    }
 
-.project-intro{
+    nav {
+        padding: 22px var(--pad);
+    }
 
-grid-template-columns:1fr;
-gap:40px;
-margin:80px auto 120px;
+    .n-links {
+        gap: 16px;
+    }
 
-}
+    .n-logo,
+    .n-link {
+        font-size: 9px;
+        letter-spacing: .12em;
+    }
 
-.project-title{
+    .project-intro {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        margin: 75px auto 85px;
+    }
 
-font-size:58px;
+    .project-title {
+        font-size: 64px;
+    }
 
-}
+    .project-meta {
+        font-size: 10px;
+        line-height: 2;
+    }
 
-.frame{
+    .story {
+        padding: 0 var(--pad) 100px;
+    }
 
-margin-bottom:80px;
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        row-gap: 55px;
+    }
 
-}
+    .frame.pair img {
+        aspect-ratio: auto;
+        height: auto;
+    }
 
-.wide,
-.medium,
-.tall,
-.small,
-.large{
+    .frame.center {
+        grid-column: auto;
+        width: 100%;
+    }
 
-width:100%;
-margin-left:0;
+    .film-section {
+        width: 100%;
+        margin: 75px auto;
+    }
 
-}
+    .caption,
+    .film-caption {
+        font-size: 9px;
+        margin-top: 12px;
+    }
 
 }
 
@@ -249,18 +361,18 @@ margin-left:0;
 
 <nav>
 
-<a href="https://mayaterzi.com" class="n-logo">Maya Terzi</a>
+    <a href="https://mayaterzi.com" class="n-logo">Maya Terzi</a>
 
-<div class="n-links">
-
-<a href="https://mayaterzi.com/projects" class="n-link">Projects</a>
-<a href="https://mayaterzi.com/maya" class="n-link">About</a>
-<a href="https://mayaterzi.com/connect" class="n-link">Connect</a>
-
-</div>
+    <div class="n-links">
+        <a href="https://mayaterzi.com/projects" class="n-link">Projects</a>
+        <a href="https://mayaterzi.com/maya" class="n-link">About</a>
+        <a href="https://mayaterzi.com/connect" class="n-link">Connect</a>
+    </div>
 
 </nav>
 
+
+<!-- PROJECT INTRO -->
 
 <section class="project-intro">
 
@@ -275,16 +387,18 @@ margin-left:0;
         </h1>
 
     </div>
-        
+
     <div class="project-meta">
 
         Campaign Development<br>
         Garment Construction<br>
-        Video Direction<br>
+        Video Direction
 
         <br><br>
-        
-        Fall / Winter 2025<br>
+
+        Fall / Winter 2025
+
+        <br><br>
 
         <a href="https://instagram.com/chaseabag.co"
            target="_blank"
@@ -292,88 +406,77 @@ margin-left:0;
             View Social Channel
         </a>
 
-        <br><br>
-
     </div>
 
 </section>
 
 
+<!-- OPENING IMAGE PAIR -->
+
 <section class="story">
 
-<div class="frame wide">
+    <div class="gallery-grid">
 
-<img src="image1.png">
+        <div class="frame pair">
+            <img src="image1.png" alt="Love; Unity campaign image 01">
+            <div class="caption">Final Campaign</div>
+        </div>
 
-<div class="caption">
-Final Campaign
-</div>
+        <div class="frame pair">
+            <img src="image2.png" alt="Love; Unity campaign image 02">
+            <div class="caption">Final Campaign</div>
+        </div>
 
-</div>
+        <!-- CENTERED CAMPAIGN IMAGE -->
 
+        <div class="frame center">
+            <img src="image3.png" alt="Love; Unity campaign image 03">
+            <div class="caption">Final Campaign</div>
+        </div>
 
-<div class="frame tall">
-
-<img src="image2.png">
-
-<div class="caption">
-Final Campaign
-</div>
-
-</div>
-
-
-<div class="frame medium">
-
-<img src="image3.png">
-
-<div class="caption">
-Final Campaign
-</div>
-
-</div>
-
-
-<div class="frame small">
-
-<img src="image4.png">
-
-<div class="caption">
-Final Campaign
-</div>
-
-</div>
-
-
-<div class="frame large">
-
-  <img src="image5.png">
-
-  <div class="caption">
-    Final Campaign
-  </div>
-
-</div>
-
-
-<div class="frame medium">
-  <a href="https://www.instagram.com/reel/DOhAET1CZLx/" target="_blank">
-
-    <img src="preview6.png" alt="Campaign Reel">
-
-    <div class="caption">
-      Campaign Film · Watch on Instagram
     </div>
 
-  </a>
-</div>
+
+    <!-- CAMPAIGN FILM -->
+
+    <div class="film-section">
+
+        <a class="film-link"
+           href="https://www.instagram.com/reel/DOhAET1CZLx/"
+           target="_blank"
+           rel="noopener noreferrer">
+
+            <div class="film-frame">
+                <img src="preview6.png" alt="Love; Unity campaign film preview">
+            </div>
+
+            <div class="film-caption">
+                <span>Campaign Film</span>
+                <span>Watch on Instagram ↗</span>
+            </div>
+
+        </a>
+
+    </div>
 
 
-</div>
+    <!-- CLOSING IMAGE PAIR -->
+
+    <div class="gallery-grid">
+
+        <div class="frame pair">
+            <img src="image4.png" alt="Love; Unity campaign image 04">
+            <div class="caption">Final Campaign</div>
+        </div>
+
+        <div class="frame pair">
+            <img src="image5.png" alt="Love; Unity campaign image 05">
+            <div class="caption">Final Campaign</div>
+        </div>
+
+    </div>
+
 </section>
 
 </body>
 </html>
-
-
-
