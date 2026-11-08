@@ -168,8 +168,6 @@ nav {
     color: rgba(0, 0, 0, .45);
 }
 
-/* The book occupies the full available width */
-
 .book-container {
     width: 100%;
     max-width: 1200px;
@@ -274,6 +272,10 @@ nav {
 .frame {
     width: 100%;
     min-width: 0;
+}
+
+.frame-image {
+    width: 100%;
     aspect-ratio: 4 / 5;
     overflow: hidden;
 }
@@ -299,10 +301,10 @@ nav {
     color: rgba(0, 0, 0, .45);
 }
 
-
-/* ---------- RESPONSIVE ---------- */
+/* ---------- TABLET ---------- */
 
 @media (max-width: 900px) {
+
     :root {
         --pad: 24px;
     }
@@ -347,22 +349,38 @@ nav {
     .book-hint {
         font-size: 8px;
     }
+
+    .gallery-row {
+        gap: 16px;
+    }
 }
 
-@media (max-width: 480px) {
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 600px) {
+
+    :root {
+        --pad: 20px;
+    }
+
     nav {
-        padding-top: 20px;
-        padding-bottom: 20px;
+        padding: 20px var(--pad);
     }
 
     .n-links {
-        gap: 20px;
+        gap: 17px;
     }
 
     .n-link,
     .n-logo {
         font-size: 8px;
         letter-spacing: .08em;
+    }
+
+    .project-intro {
+        grid-template-columns: 1fr;
+        gap: 35px;
+        margin: 75px auto 85px;
     }
 
     .project-title {
@@ -373,16 +391,51 @@ nav {
         font-size: 10px;
     }
 
+    .lookbook {
+        margin-bottom: 80px;
+    }
+
+    .story {
+        padding: 0 var(--pad) 80px;
+    }
+
+    /* Stack all three images at full available width */
+
     .gallery-row {
         grid-template-columns: 1fr;
         gap: 40px;
     }
 
     .frame {
-        margin-bottom: 0;
+        width: 100%;
+    }
+
+    .frame-image {
+        width: 100%;
+        aspect-ratio: 4 / 5;
+    }
+
+    .frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .caption {
+        margin-top: 12px;
+        font-size: 9px;
+        letter-spacing: .12em;
+    }
+
+    .book-controls {
+        gap: 20px;
+    }
+
+    .book-hint {
+        font-size: 8px;
     }
 }
-    
+
 </style>
 </head>
 
@@ -475,17 +528,23 @@ nav {
     <div class="gallery-row">
 
         <div class="frame">
-            <img src="image1.png" alt="Aegean Summer photograph 01">
+            <div class="frame-image">
+                <img src="image1.png" alt="Aegean Summer photograph 01">
+            </div>
             <div class="caption">Product Photography</div>
         </div>
 
         <div class="frame">
-            <img src="image2.png" alt="Aegean Summer photograph 02">
+            <div class="frame-image">
+                <img src="image2.png" alt="Aegean Summer photograph 02">
+            </div>
             <div class="caption">Product Photography</div>
         </div>
 
         <div class="frame">
-            <img src="image3.png" alt="Aegean Summer photograph 03">
+            <div class="frame-image">
+                <img src="image3.png" alt="Aegean Summer photograph 03">
+            </div>
             <div class="caption">Product Photography</div>
         </div>
 
@@ -506,7 +565,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const counter = document.getElementById("page-counter");
 
     // Front cover + interior images + back cover.
-    // All image paths are relative to this HTML file.
 
     const images = [
         "cover-front.png",
@@ -520,20 +578,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const page = document.createElement("div");
         page.className = "page";
-        
-const img = document.createElement("img");
-img.src = src;
 
-img.onerror = function () {
-    console.error("Could not load book image:", src);
-};
+        const img = document.createElement("img");
+        img.src = src;
 
-img.alt =
-    index === 0
-        ? "Aegean Summer front cover"
-        : index === images.length - 1
-            ? "Aegean Summer back cover"
-            : `Aegean Summer campaign page ${index}`;
+        img.onerror = function () {
+            console.error("Could not load book image:", src);
+        };
+
+        img.alt =
+            index === 0
+                ? "Aegean Summer front cover"
+                : index === images.length - 1
+                    ? "Aegean Summer back cover"
+                    : `Aegean Summer campaign page ${index}`;
 
         img.draggable = false;
 
@@ -542,7 +600,7 @@ img.alt =
         return page;
     });
 
-    // Set up the animated book.
+    // Check that the page-flip library loaded.
 
     if (typeof St === "undefined" || !St.PageFlip) {
         counter.textContent = "BOOK UNAVAILABLE";
@@ -555,9 +613,10 @@ img.alt =
         return;
     }
 
+    // Initialize the animated book.
+
     const pageFlip = new St.PageFlip(bookElement, {
 
-        // Dimensions of one page, not the entire open spread.
         width: 550,
         height: 750,
 
@@ -584,30 +643,30 @@ img.alt =
 
     pageFlip.loadFromHTML(pages);
 
-    // Update arrows and page counter after each turn.
+    // Update arrows and page counter.
 
-function updateControls() {
+    function updateControls() {
 
-    const current = pageFlip.getCurrentPageIndex();
-    const last = images.length - 1;
+        const current = pageFlip.getCurrentPageIndex();
+        const last = images.length - 1;
 
-    previousButton.disabled = current === 0;
-    nextButton.disabled = current >= last;
+        previousButton.disabled = current === 0;
+        nextButton.disabled = current >= last;
 
-    if (current === 0) {
-        counter.textContent = "COVER";
-    } else if (current === last) {
-        counter.textContent = "BACK COVER";
-    } else {
-        const first = current;
-        const second = Math.min(current + 1, last - 1);
+        if (current === 0) {
+            counter.textContent = "COVER";
+        } else if (current === last) {
+            counter.textContent = "BACK COVER";
+        } else {
+            const first = current;
+            const second = Math.min(current + 1, last - 1);
 
-        counter.textContent =
-            String(first).padStart(2, "0") +
-            " — " +
-            String(second).padStart(2, "0");
+            counter.textContent =
+                String(first).padStart(2, "0") +
+                " — " +
+                String(second).padStart(2, "0");
+        }
     }
-}
 
     previousButton.addEventListener("click", function () {
         pageFlip.flipPrev();
@@ -621,8 +680,7 @@ function updateControls() {
 
     updateControls();
 
-    // Keyboard navigation while interacting with the book.
-    // Do not intercept arrow keys while typing in form fields.
+    // Keyboard navigation.
 
     document.addEventListener("keydown", function (event) {
 
