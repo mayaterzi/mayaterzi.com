@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,237 +13,369 @@
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-:root{
---white:#fff;
---ink:#0e0e0e;
---accent:#e67d43;
---pad:48px;
+:root {
+  --white: #fff;
+  --ink: #0e0e0e;
+  --accent: #e67d43;
+  --pad: 48px;
 }
 
-body{
-background:#fff;
-color:var(--ink);
-font-family:'Inter',sans-serif;
-font-weight:300;
+body {
+  background: var(--white);
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
 }
 
-/* ---------- NAV ---------- */
+/* ---------- NAVIGATION ---------- */
 
-nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:24px var(--pad);
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px var(--pad);
 }
 
-.n-logo{
-font-size:11px;
-letter-spacing:.18em;
-text-transform:uppercase;
-font-weight:500;
-color:var(--ink);
-text-decoration:none;
-transition:.2s;
+.n-logo {
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--ink);
+  text-decoration: none;
+  transition: .2s;
 }
 
-.n-logo:hover{
-color:var(--accent);
+.n-logo:hover {
+  color: var(--accent);
 }
 
-.n-links{
-display:flex;
-gap:40px;
+.n-links {
+  display: flex;
+  gap: 40px;
 }
 
-.n-link{
-font-size:11px;
-letter-spacing:.18em;
-text-transform:uppercase;
-text-decoration:none;
-color:var(--ink);
-opacity:.45;
-transition:.2s;
+.n-link {
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ink);
+  opacity: .45;
+  transition: .2s;
 }
 
-.n-link:hover{
-opacity:1;
-color:var(--accent);
+.n-link:hover {
+  opacity: 1;
+  color: var(--accent);
 }
 
-/* ---------- INTRO ---------- */
+/* ---------- PROJECT INTRO ---------- */
 
-.project-intro{
-    max-width:1200px;
-    margin:120px auto 220px;
-    padding:0 var(--pad);
-    display:grid;
-    grid-template-columns:1fr 320px;
-    gap:120px;
-    align-items:end;
+.project-intro {
+  max-width: 1200px;
+  margin: 120px auto 150px;
+  padding: 0 var(--pad);
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 120px;
+  align-items: end;
 }
 
-.project-heading{
-    display:flex;
-    flex-direction:column;
-    gap:18px;
+.project-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
-.project-number{
-    font-size:10px;
-    letter-spacing:.22em;
-    text-transform:uppercase;
-    color:rgba(0,0,0,.35);
-    transition:.3s;
+.project-number {
+  font-size: 10px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.35);
+  transition: .3s;
 }
 
-.project-title{
-    font-family:'EB Garamond',serif;
-    font-size:clamp(4rem,9vw,8rem);
-    font-weight:400;
-    line-height:.95;
-    letter-spacing:-.03em;
+.project-title {
+  font-family: 'EB Garamond', serif;
+  font-size: clamp(4rem, 9vw, 8rem);
+  font-weight: 400;
+  line-height: .95;
+  letter-spacing: -.03em;
 }
 
-.project-title a{
-    color:var(--ink);
-    text-decoration:none;
-    transition:color .35s ease;
+.project-title a {
+  color: var(--ink);
+  text-decoration: none;
+  transition: color .35s ease;
 }
 
 .project-heading:hover .project-title a,
-.project-heading:hover .project-number{
-    color:var(--accent);
+.project-heading:hover .project-number {
+  color: var(--accent);
 }
 
-.project-meta{
-    font-size:11px;
-    text-transform:uppercase;
-    letter-spacing:.18em;
-    line-height:2;
-    color:rgba(0,0,0,.55);
+.project-meta {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: .18em;
+  line-height: 2;
+  color: rgba(0,0,0,.55);
 }
 
-/* ---------- IMAGE STORY ---------- */
-
-.story{
-
-max-width:1600px;
-margin:auto;
-padding:0 var(--pad) 200px;
-
+.project-meta a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0,0,0,.25);
+  transition: .3s;
 }
 
-/* every image block */
-
-.frame{
-
-margin-bottom:220px;
-
+.project-meta a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
 }
 
-.frame img{
+/* ---------- EDITORIAL PHOTO GRID ---------- */
 
-width:100%;
-display:block;
-
+.story {
+  max-width: 1600px;
+  margin: auto;
+  padding: 0 var(--pad) 180px;
 }
 
-/* editorial sizing */
-
-.wide{
-
-width:72%;
-margin-left:0;
-
+.gallery-section {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 32px;
+  row-gap: 65px;
+  align-items: start;
+  margin-bottom: 150px;
 }
 
-.tall{
-
-width:34%;
-margin-left:auto;
-
+.frame {
+  width: 100%;
+  min-width: 0;
 }
 
-.medium{
-
-width:48%;
-margin-left:12%;
-
+.frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform .7s ease, filter .5s ease;
 }
 
-.small{
-
-width:28%;
-margin-left:58%;
-
+.frame:hover img {
+  transform: scale(1.015);
+  filter: brightness(.93);
 }
 
-.large{
-
-width:66%;
-margin:auto;
-
+.caption {
+  margin-top: 15px;
+  font-size: 10px;
+  letter-spacing: .16em;
+  line-height: 1.8;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.45);
+  transition: color .3s ease;
 }
 
-.caption{
+.frame:hover .caption {
+  color: var(--accent);
+}
 
-margin-top:18px;
+/* ---------- CENTERED VIDEO FEATURE ---------- */
 
-font-size:11px;
-letter-spacing:.16em;
-text-transform:uppercase;
-color:rgba(0,0,0,.45);
+.video-feature {
+  width: 76%;
+  max-width: 1100px;
+  margin: 0 auto 160px;
+}
+
+.video-feature a {
+  display: block;
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.video-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.video-feature img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform .7s ease, filter .5s ease;
+}
+
+/* Play button */
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 68px;
+  height: 68px;
+  border: 1px solid rgba(255,255,255,.85);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,.12);
+  backdrop-filter: blur(5px);
+  transition: background .3s ease, transform .3s ease;
+}
+
+.play-button svg {
+  width: 18px;
+  height: 18px;
+  fill: white;
+  margin-left: 4px;
+}
+
+/* Video caption */
+
+.watch-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,.45);
+  transition: color .3s ease;
+}
+
+/* Video hover */
+
+.video-feature a:hover img {
+  transform: scale(1.025);
+  filter: brightness(.72);
+}
+
+.video-feature a:hover .play-button {
+  background: var(--accent);
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.video-feature a:hover .watch-label {
+  color: var(--accent);
+}
+
+.video-feature a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
+}
+
+/* ---------- TABLET ---------- */
+
+@media(max-width: 900px) {
+
+  :root {
+    --pad: 28px;
+  }
+
+  .project-intro {
+    grid-template-columns: 1fr 260px;
+    gap: 50px;
+    margin: 90px auto 110px;
+  }
+
+  .project-title {
+    font-size: 68px;
+  }
+
+  .gallery-section {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 24px;
+    row-gap: 55px;
+    margin-bottom: 110px;
+  }
+
+  .video-feature {
+    width: 88%;
+    margin-bottom: 110px;
+  }
 
 }
 
 /* ---------- MOBILE ---------- */
 
-@media(max-width:900px){
+@media(max-width: 600px) {
 
-:root{
---pad:24px;
-}
+  :root {
+    --pad: 20px;
+  }
 
-.project-intro{
+  nav {
+    padding: 22px var(--pad);
+  }
 
-grid-template-columns:1fr;
-gap:40px;
-margin:80px auto 120px;
+  .n-links {
+    gap: 17px;
+  }
 
-}
+  .n-logo,
+  .n-link {
+    font-size: 9px;
+    letter-spacing: .12em;
+  }
 
-.project-title{
+  .project-intro {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    margin: 75px auto 85px;
+  }
 
-font-size:58px;
+  .project-title {
+    font-size: 58px;
+  }
 
-}
+  .project-meta {
+    font-size: 10px;
+  }
 
-.frame{
+  .story {
+    padding: 0 var(--pad) 80px;
+  }
 
-margin-bottom:80px;
+  .gallery-section {
+    grid-template-columns: 1fr;
+    row-gap: 45px;
+    margin-bottom: 80px;
+  }
 
-}
-    
-.extra-gap {
-  margin-bottom: 400px;
-}
+  .video-feature {
+    width: 100%;
+    margin-bottom: 85px;
+  }
 
-.wide,
-.medium,
-.tall,
-.small,
-.large{
+  .play-button {
+    width: 50px;
+    height: 50px;
+  }
 
-width:100%;
-margin-left:0;
+  .play-button svg {
+    width: 15px;
+    height: 15px;
+  }
 
-}
+  .caption,
+  .watch-label {
+    font-size: 9px;
+    letter-spacing: .12em;
+  }
 
 }
 
@@ -251,159 +384,188 @@ margin-left:0;
 
 <body>
 
+<!-- ---------- NAVIGATION ---------- -->
+
 <nav>
+  <a href="https://mayaterzi.com" class="n-logo">Maya Terzi</a>
 
-<a href="https://mayaterzi.com" class="n-logo">Maya Terzi</a>
-
-<div class="n-links">
-
-<a href="https://mayaterzi.com/projects" class="n-link">Projects</a>
-<a href="https://mayaterzi.com/maya" class="n-link">About</a>
-<a href="https://mayaterzi.com/connect" class="n-link">Connect</a>
-
-</div>
-
+  <div class="n-links">
+    <a href="https://mayaterzi.com/projects" class="n-link">Projects</a>
+    <a href="https://mayaterzi.com/maya" class="n-link">About</a>
+    <a href="https://mayaterzi.com/connect" class="n-link">Connect</a>
+  </div>
 </nav>
 
 
+<!-- ---------- PROJECT INTRO ---------- -->
+
 <section class="project-intro">
 
-    <div class="project-heading">
+  <div class="project-heading">
+    <div class="project-number">02</div>
 
-        <div class="project-number">02</div>
+    <h1 class="project-title">
+      <a href="#">
+        Preston Settles<br>Basketball Tournament
+      </a>
+    </h1>
+  </div>
 
-        <h1 class="project-title">
-            <a href="#">
-                Preston Settles<br>Basketball Tournament
-            </a>
-        </h1>
+  <div class="project-meta">
+    Operations<br>
+    Marketing & Campaign Direction<br>
+    Merchandising<br>
 
-    </div>
-
-    <div class="project-meta">
-        
-        Operations<br>
-        Marketing & Campaign Direction <br>
-        Merchandising<br>
-
-        <a href="https://instagram.com/prestonsettles.tournament"
-           target="_blank"
-           rel="noopener noreferrer">
-            View Social Channel
-        </a>
-
-        <br><br>
-
-    </div>
+    <a href="https://instagram.com/prestonsettles.tournament"
+       target="_blank"
+       rel="noopener noreferrer">
+      View Social Channel
+    </a>
+  </div>
 
 </section>
 
 
+<!-- ---------- PHOTO & VIDEO GALLERY ---------- -->
+
 <section class="story">
 
-<!-- IMAGE 12 -->
-<div class="frame wide">
-  <img src="image12.jpg">
-  <div class="caption">No Bad Days '26</div>
+
+<!-- GROUP 01 — NO BAD DAYS '26 -->
+
+<div class="gallery-section">
+
+  <div class="frame">
+    <img src="image12.jpg" alt="No Bad Days 2026">
+    <div class="caption">No Bad Days '26</div>
+  </div>
+
+  <div class="frame">
+    <img src="image13.jpg" alt="No Bad Days 2026">
+    <div class="caption">No Bad Days '26</div>
+  </div>
+
+  <div class="frame">
+    <img src="image14.jpg" alt="No Bad Days 2026">
+    <div class="caption">No Bad Days '26</div>
+  </div>
+
+  <div class="frame">
+    <img src="image15.jpg" alt="No Bad Days 2026">
+    <div class="caption">No Bad Days '26</div>
+  </div>
+
+  <div class="frame">
+    <img src="image16.jpg" alt="No Bad Days 2026">
+    <div class="caption">No Bad Days '26</div>
+  </div>
+
 </div>
 
-<!-- IMAGE 13 -->
-<div class="frame tall">
-  <img src="image13.jpg">
-  <div class="caption">No Bad Days '26</div>
+
+<!-- GROUP 02 — NO BAD DAYS '24 -->
+
+<div class="gallery-section">
+
+  <div class="frame">
+    <img src="image1.jpg" alt="No Bad Days 2024">
+    <div class="caption">No Bad Days '24</div>
+  </div>
+
+  <div class="frame">
+    <img src="image2.jpg" alt="No Bad Days 2024">
+    <div class="caption">No Bad Days '24</div>
+  </div>
+
+  <div class="frame">
+    <img src="image3.jpg" alt="No Bad Days 2024">
+    <div class="caption">No Bad Days '24</div>
+  </div>
+
+  <div class="frame">
+    <img src="image4.jpg" alt="No Bad Days 2024">
+    <div class="caption">No Bad Days '24</div>
+  </div>
+
+  <div class="frame">
+    <img src="image5.jpg" alt="No Bad Days 2024">
+    <div class="caption">No Bad Days '24</div>
+  </div>
+
 </div>
 
-<!-- IMAGE 14 -->
-<div class="frame wide">
-  <img src="image14.jpg">
-  <div class="caption">No Bad Days '26</div>
+
+<!-- GROUP 03 — NO BAD DAYS '23 -->
+
+<div class="gallery-section">
+
+  <div class="frame">
+    <img src="image6.jpg" alt="No Bad Days 2023">
+    <div class="caption">No Bad Days '23</div>
+  </div>
+
+  <div class="frame">
+    <img src="image7.jpg" alt="No Bad Days 2023">
+    <div class="caption">No Bad Days '23</div>
+  </div>
+
+  <div class="frame">
+    <img src="image8.jpg" alt="No Bad Days 2023">
+    <div class="caption">No Bad Days '23</div>
+  </div>
+
 </div>
 
-<!-- IMAGE 15 -->
-<div class="frame small">
-  <img src="image15.jpg">
-  <div class="caption">No Bad Days '26</div>
-</div>
 
-<!-- IMAGE 16 -->
-<div class="frame wide">
-  <img src="image16.jpg">
-  <div class="caption">No Bad Days '26</div>
-</div>
+<!-- CENTERED VIDEO — PLAYING FOR PRESTON '22 -->
 
-<!-- IMAGE 1 -->
-<div class="frame wide">
-  <img src="image1.jpg">
-  <div class="caption">No Bad Days '24</div>
-</div>
+<div class="video-feature">
 
-<!-- IMAGE 2 -->
-<div class="frame tall">
-  <img src="image2.jpg">
-  <div class="caption">No Bad Days '24</div>
-</div>
+  <a href="https://www.instagram.com/reel/ChDUAhwjRMd/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA=="
+     target="_blank"
+     rel="noopener noreferrer">
 
-<!-- IMAGE 3 -->
-<div class="frame medium">
-  <img src="image3.jpg">
-  <div class="caption">No Bad Days '24</div>
-</div>
+    <div class="video-image">
 
-<!-- IMAGE 4 -->
-<div class="frame small">
-  <img src="image4.jpg">
-  <div class="caption">No Bad Days '24</div>
-</div>
+      <img src="preview1.jpg" alt="Playing for Preston 2022 video">
 
-<!-- IMAGE 5 -->
-<div class="frame large extra-gap">
-  <img src="image5.jpg">
-  <div class="caption">No Bad Days '24</div>
-</div>
+      <div class="play-button">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </div>
 
-<!-- IMAGE 6 -->
-<div class="frame medium">
-  <img src="image6.jpg">
-  <div class="caption">No Bad Days '23</div>
-</div>
+    </div>
 
-<!-- IMAGE 7 -->
-<div class="frame tall">
-  <img src="image7.jpg">
-  <div class="caption">No Bad Days '23</div>
-</div>
+    <div class="watch-label">
+      <span>Playing for Preston '22</span>
+      <span>Watch Video ↗</span>
+    </div>
 
-<!-- IMAGE 8 -->
-<div class="frame wide">
-  <img src="image8.jpg">
-  <div class="caption">No Bad Days '23</div>
-</div>
-    
-<!-- VIDEO 1 -->
-<div class="frame wide">
-  <a href="https://www.instagram.com/reel/ChDUAhwjRMd/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==" target="_blank">
-    <img src="preview1.jpg">
-    <div class="caption">Playing for Preston '22</div>
   </a>
-</div>
-    
 
-<!-- IMAGE 9 -->
-<div class="frame small">
-  <img src="image9.jpg">
-  <div class="caption">Playing for Preston '22</div>
 </div>
 
-<!-- IMAGE 10 -->
-<div class="frame medium">
-  <img src="image10.jpg">
-  <div class="caption">Playing for Preston '22h</div>
-</div>
 
-<!-- IMAGE 11 -->
-<div class="frame medium">
-  <img src="image11.jpg">
-  <div class="caption">Playing for Preston '22</div>
+<!-- GROUP 04 — PLAYING FOR PRESTON '22 -->
+
+<div class="gallery-section">
+
+  <div class="frame">
+    <img src="image9.jpg" alt="Playing for Preston 2022">
+    <div class="caption">Playing for Preston '22</div>
+  </div>
+
+  <div class="frame">
+    <img src="image10.jpg" alt="Playing for Preston 2022">
+    <div class="caption">Playing for Preston '22</div>
+  </div>
+
+  <div class="frame">
+    <img src="image11.jpg" alt="Playing for Preston 2022">
+    <div class="caption">Playing for Preston '22</div>
+  </div>
+
 </div>
 
 
